@@ -4,17 +4,24 @@ import { spawn } from "child_process";
 import temp from "temp";
 import fs from "fs";
 import cors from 'cors'
+import Connection from "./db.js";
+import mongoose from "mongoose";
+import Person from "./models/Person.js";
+
+
+
 
 const app = express();
 app.use(cors());
 const port = 6001;
-
+Connection();
 
 const storage = multer.memoryStorage(); // Store the uploaded image in memory
 const upload = multer({ storage: storage });
 
 app.use(express.json());
 
+// api for processing the image 
 app.post("/process-image", upload.single("image"), async (req, res) => {
   try {
     if (!req.file) {
@@ -76,6 +83,39 @@ const response = await new Promise((resolve) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.post("/fetchDetails", async(req, res)=>{
+  try {
+    // checking the Person;
+
+    console.log(req.body);
+    const details = await Person.findOne({fingerprint:  req.body.matchedImageName});
+
+
+    console.log(details.name);
+    if(details){
+    return res.status(200).json(details)
+    }
+    else{
+      return res.status(204).json({msg: "No Match Found"});
+    }
+} catch (error) {
+    return res.status(500).json({msg: "Some error occured" , log: error.message});
+    
+}
+})
+
+app.post("/addDetails", async(req, res)=>{
+  try {
+    const newPerson = new Person(
+       
+    );
+      newPerson.save();
+      return res.status(200).json({msg: 'New Person added succesfully!'});
+  } catch (error) {
+    return res.status(500).json({msg: "Some error occured" , log: error.message});
+  }
+})
 
 app.listen(port, () => {
   console.log(`Backend server running on Port: ${port}`);
