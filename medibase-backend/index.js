@@ -84,17 +84,18 @@ const response = await new Promise((resolve) => {
   }
 });
 
-app.post("/fetchDetails", async(req, res)=>{
+app.post("/fetchDetails", async (req, res)=>{
   try {
     // checking the Person;
-
+    console.log("he");
     console.log(req.body);
+    console.log("she");
     const details = await Person.findOne({fingerprint:  req.body.matchedImageName});
 
 
-    console.log(details.name);
+    // console.log(details.name);
     if(details){
-    return res.status(200).json(details)
+    return res.status(200).send(details)
     }
     else{
       return res.status(204).json({msg: "No Match Found"});

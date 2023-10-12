@@ -15,9 +15,11 @@ export const processImage = async(image) =>{
 
 export const fetchDetails = async(matchedImageName) => {
     try {
-        let details = await axios.post(`${URL}/fetchDetails`, matchedImageName);
+        console.log(matchedImageName);
+        let details = await axios.post(`${URL}/fetchDetails`,{ matchedImageName});
+        console.log(details);
         return details.data;
     } catch (error) {
-        
+        console.log(error.message);
     }
 }
