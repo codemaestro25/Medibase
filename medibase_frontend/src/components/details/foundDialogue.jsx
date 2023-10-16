@@ -1,5 +1,6 @@
-import React from 'react'
+
 import { Dialog, Typography, styled, Box } from '@mui/material'
+import { ArrowBack } from '@mui/icons-material'
 
 const dialogStyle = {
 display: "flex",
@@ -15,6 +16,7 @@ backgroundColor : "#3e3f40"
 const BigText = styled(Typography)`
 font-size : 3rem;
 margin : 30px 0;
+font-family: monospace;
 `
 
 const ParentContainer = styled(Box)`
@@ -29,10 +31,12 @@ min-width : 50%;
 diplay : flex;
 flex-direction : column;
 align-items : center;
+
 &>*{
     padding:20px 0;
     margin-left : 40px;
     font-size : 24px;
+    font-family: monospace;
 }
 
 `
@@ -44,13 +48,21 @@ flex-direction : column;
     padding:20px 0;
     margin-left : 40px;
     font-size : 24px;
+    font-family: monospace;
 }
 
 `
 
-const FoundDialogue = ({details}) => {
+const FoundDialogue = (props) => {
+
+   const {details , open ,setOpen} = props;
+
+    const handleClose = ()=>{
+        setOpen(false);
+    }
   return (
-   <Dialog open={true} PaperProps={{sx:dialogStyle}} hideBackdrop={true}>
+   <Dialog open={open} PaperProps={{sx:dialogStyle}} hideBackdrop={true}>
+    <ArrowBack onClick={handleClose} style={{position: "absolute", left : "0px", margin: "8px", fontSize:"40px"}}/>
         <BigText>Match Found!!!</BigText>
         <ParentContainer>
             <LeftContainer>

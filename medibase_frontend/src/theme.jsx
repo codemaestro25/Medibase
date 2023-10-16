@@ -5,8 +5,9 @@ const theme = createTheme({
     body: {
       backgroundColor: "#000", // Use 'default' key for background color
     },
-    typography: {
+    text : {
       color: "#41cf3c", // Use 'primary' key for text color
+      fontFamily: "monospace"
     },
   },
 });

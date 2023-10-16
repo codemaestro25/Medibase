@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState , useRef, useEffect } from "react";
 import { Button, Typography, Box, styled, Divider } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import { fetchDetails, processImage } from "../../services/api";
 import FoundDialogue from "../details/foundDialogue";
+import video1 from './video/finperprint_scan.mp4'
 
 
 // const dialogStyle = {
@@ -55,7 +56,7 @@ const UploadSection = styled(Box)`
   & > *{
     margin: 30px 0px !important;
   }
-  height: 450px;
+  height: 550px;
 
 
   `;
@@ -72,6 +73,8 @@ const InputDialog = () => {
   const [fileName, setFileName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [matchDetails , setMatchDetails] = useState(null);
+  const [open , setOpen] = useState(false)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -97,12 +100,25 @@ const InputDialog = () => {
         // Handle the response from the server as needed
         console.log(response);
         console.log(details);
+        setOpen(true);
         setMatchDetails(details);
+        setIsVideoPlaying(false);
       } catch (error) {
         console.error("Image processing failed.");
       }
     }
   };
+
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    // Programmatically trigger video playback
+    if (isVideoPlaying) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+  }, [isVideoPlaying])
 
   return (
    <>
@@ -110,7 +126,7 @@ const InputDialog = () => {
 
       <Container>
          <UploadSection>
-           <Typography style={{ fontSize: "60px" }}>
+           <Typography style={{ fontSize: "60px", fontFamily: "monospace" }}>
            Fingerprint Identification
           </Typography>
 
@@ -125,7 +141,7 @@ const InputDialog = () => {
           </GreenButton>
           {fileName && (
             <>
-              <Typography style={{ fontSize: "22px", padding:"0 15px" }}>{`Image : ${fileName}`}</Typography>
+              <Typography style={{ fontSize: "22px", padding:"0 15px", fontFamily: "monospace" }}>{`Image : ${fileName}`}</Typography>
               <GreenButton
                 component="label"
                 variant="contained"
@@ -150,8 +166,9 @@ const InputDialog = () => {
           }}
         />
       </DividerContainer>
+      <video ref={videoRef} src={video1} width="400" height="300" loop={true} controls = {true} autoPlay={isVideoPlaying} />
       </Container>
-      {matchDetails && <FoundDialogue details = {matchDetails}/>}
+      {matchDetails &&  <FoundDialogue details = {matchDetails} open = {open} setOpen={setOpen}/>}
       </>
 
     
