@@ -2,15 +2,16 @@ import mongoose from "mongoose";
 
 
 const PersonSchema = mongoose.Schema({
-    fingerprint: {
+      
+     
+      iris: {
         type: [
           {
             type: String,
           },
         ],
       },
-     
-      iris: {
+      fingerprint: {
         type: [
           {
             type: String,

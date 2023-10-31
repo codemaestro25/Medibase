@@ -4,6 +4,7 @@ import json
 import sys
 
 def getData():
+
     if len(sys.argv) > 1:
         filePath = sys.argv[1]
     sample = cv2.imread(filePath, 1) # gui input
