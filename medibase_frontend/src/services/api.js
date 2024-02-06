@@ -44,3 +44,14 @@ export const fetchIrisDetails = async(matchedImageName) => {
         console.log(error.message);
     }
 }
+
+// medical records
+
+export const fetchIndiMedicalRecords = async(uniqueId) =>{
+    try {
+        let records = await axios.post(`${URL}/fetchIndiMedicalRecords`, {uniqueId});
+        return records.data;
+    } catch (error) {
+        
+    }
+} 

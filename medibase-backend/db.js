@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const URL = "mongodb+srv://narkhededevesh63:Cloudmongo2512@cluster0.1dqjrck.mongodb.net/?retryWrites=true&w=majority";
+const URL = "mongodb+srv://narkhededevesh63:Cloudmongo2512@cluster0.1dqjrck.mongodb.net/";
 
 const Connection = async()=>{
 try {

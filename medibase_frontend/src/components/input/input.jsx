@@ -100,9 +100,12 @@ const InputDialog = () => {
         // image name fetched in response , passong it to fetchDetails api
 
         let details = await fetchFingeprintDetails(response.filename);
-
+        
+        if(!details){
+          alert("NO MATCH FOUND!")
+        }
         // Handle the response from the server as needed
-        console.log(response);
+        console.log(response.status);
         console.log(details);
         setOpen(true);
         setMatchDetails(details);

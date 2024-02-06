@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import Person from "./models/Person.js";
 import bodyParser from "body-parser";
 import Route from "./route.js"
+import VaccineRecord from "./models/VaccineRecords.js";
 
 
 
@@ -195,6 +196,20 @@ app.post("/fetchIrisDetails", async (req, res) => {
 });
 
 
+app.post("/fetchIndiVaccineRecords", async (req, res) => {
+  try {
+    
+      const details = await VaccineRecord.find({ HospitalID: 'H1005' });
+      console.log('Details:', details); // Log details to inspect the retrieved data
+      return res.json(details);
+  } catch (error) {
+      console.error('Error fetching vaccine records:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
 app.post("/addDetails", async(req, res)=>{
   try {
     const newPerson = new Person(
@@ -206,6 +221,44 @@ app.post("/addDetails", async(req, res)=>{
     return res.status(500).json({msg: "Some error occured" , log: error.message});
   }
 })
+app.post("/fetchIndiMedicalRecords", async (req, res) => {
+  try {
+     
+      
+      // Establish MongoDB connection
+      await Connection();
+
+      const db = mongoose.connection.db;
+
+      // // Define collections you want to query
+      // const collections = ['TestRecords', 'VaccineRecords', 'ClinicalRecords','HospitalAdmitRecord']; // Add more collections if needed
+
+      const collection =  db.collection('ClinicalRecords');
+      const query = { patientId: 'P0001' }; 
+      const documents = await collection.find(query).toArray();
+      console.log(documents);
+      let results = documents;
+
+      // // Iterate through collections and perform query
+      // for (const collectionName of collections) {
+      //     const collection =  db.collection('ClinicalRecords');
+      //     const query = { patientId: 'P0001' }; 
+      //     const documents = await collection.find(query).toArray();
+      //     console.log(documents);
+      //     results = results.concat(documents);
+      // }
+
+      // Send response to the frontend
+      res.status(200).json(results);
+
+      // Close the MongoDB connection
+      
+     
+  } catch (error) {
+      console.error('Error fetching medical records:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Backend server running on Port: ${port}`);
