@@ -1,6 +1,10 @@
 
+import ClinicalRecord from "../models/ClinicalRecords.js";
+import HospitalAdmitRecord from "../models/HospitalAdmitRecords.js";
 import Person from "../models/Person.js";
-import Connection from "../db.js";
+import TestRecord from "../models/TestsRecord.js";
+import VaccineRecord from "../models/VaccineRecords.js";
+
 // requests for fetching the data from database
 
 
@@ -27,41 +31,77 @@ export const fetchDetails = async(req ,res)=>{
 }
 
 
-// getting all the medical records
-export const fetchIndiMedicalRecords = async (req, res) => {
+// getting all the individual records
+export const fetchIndiVaccineRecords = async(req, res) => {
     try {
-       
-        
-        // Establish MongoDB connection
-        await Connection();
-
-        const db = mongoose.connection.db;
-
-        // Define collections you want to query
-        const collections = ['TestRecords', 'VaccineRecords', 'ClinicalRecords','HospitalAdmitRecord']; // Add more collections if needed
-
-        let results = [];
-
-        // Iterate through collections and perform query
-        for (const collectionName of collections) {
-            const collection = db.collection(collectionName);
-            const query = { patientId: "P0001" }; 
-            const documents = await collection.find(query).toArray();
-            results = results.concat(documents);
+        console.log(req.body);
+        const details = await VaccineRecord.find({ patientId: req.body.uniqueId });
+        if(details){
+            return res.status(200).json(details);
         }
-
-        // Send response to the frontend
-        res.status(200).json(results);
-
-        // Close the MongoDB connection
-        await client.close();
-        console.log('MongoDB connection closed');
+        else{
+            return res.status(204).send(`NO data found for given id: ${req.body.uniqueId}`)
+        }
     } catch (error) {
-        console.error('Error fetching medical records:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error('Error fetching vaccine records:', error);
+        return res.status(500).json({ error: error.message });
     }
-};
-    
+  };
+export const fetchIndiHospitalRecords = async(req, res) => {
+    try {
+      
+        const details = await HospitalAdmitRecord.find({ patientId: req.body.uniqueId });
+        if(details){
+            return res.status(200).json(details);
+        }
+        else{
+            return res.status(204).send(`NO data found for given id: ${req.body.uniqueId}`)
+        }
+    } catch (error) {
+        console.error('Error fetching Hospital records:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+
+  export const fetchIndiTestsRecords = async(req, res) => {
+    try {
+      
+        const details = await TestRecord.find({ patientId: req.body.uniqueId });
+        if(details){
+            return res.status(200).json(details);
+        }
+        else{
+            return res.status(204).send(`NO data found for given id: ${req.body.uniqueId}`)
+        }
+    } catch (error) {
+        console.error('Error fetching Tests done records:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+  export const fetchIndiClinicalRecords = async(req, res) => {
+    try {
+      
+        const details = await ClinicalRecord.find({ patientId: req.body.uniqueId });
+        if(details){
+            return res.status(200).json(details);
+        }
+        else{
+            return res.status(204).send(`NO data found for given id: ${req.body.uniqueId}`)
+        }
+    } catch (error) {
+        console.error('Error fetching Clinical records:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+  };
+
+
+
+
+
+
+
 // try {
 //     // checking the user;
 

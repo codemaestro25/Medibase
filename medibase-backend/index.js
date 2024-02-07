@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 import Person from "./models/Person.js";
 import bodyParser from "body-parser";
 import Route from "./route.js"
-import VaccineRecord from "./models/VaccineRecords.js";
+
 
 
 
@@ -17,12 +17,12 @@ import VaccineRecord from "./models/VaccineRecords.js";
 const app = express();
 app.use(cors());
 
-// app.use('/', Route)
 const port = 6001;
 Connection();
 
 
 app.use(express.json());
+app.use('/', Route)
 
 const storage = multer.memoryStorage(); // Store the uploaded image in memory
 const upload = multer({ storage: storage });
@@ -196,17 +196,7 @@ app.post("/fetchIrisDetails", async (req, res) => {
 });
 
 
-app.post("/fetchIndiVaccineRecords", async (req, res) => {
-  try {
-    
-      const details = await VaccineRecord.find({ HospitalID: 'H1005' });
-      console.log('Details:', details); // Log details to inspect the retrieved data
-      return res.json(details);
-  } catch (error) {
-      console.error('Error fetching vaccine records:', error);
-      return res.status(500).json({ error: 'Internal server error' });
-  }
-});
+
 
 
 

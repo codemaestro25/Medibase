@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const URL = "mongodb+srv://narkhededevesh63:Cloudmongo2512@cluster0.1dqjrck.mongodb.net/";
+const URL = "mongodb+srv://narkhededevesh63:Cloudmongo2512@cluster0.1dqjrck.mongodb.net/Medibase";
+
 
 const Connection = async()=>{
 try {

@@ -15,16 +15,16 @@ const VaccineRecordsSchema = new mongoose.Schema({
         required: true
     },
     DateAdministered: {
-        type: Date,
-        required: true
+        type: String,
+       
     },
     Location: {
         type: String,
-        required: true
+       
     }
 });
 
 // Create a model
-const VaccineRecord = mongoose.model("VaccineRecord", VaccineRecordsSchema);
+const VaccineRecord = mongoose.model("vaccinerecord", VaccineRecordsSchema);
 
 export default VaccineRecord;
