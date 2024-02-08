@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { fetchIndiVaccineRecords, fetchIndiClinicalRecords, fetchIndiTestsRecords, fetchIndiHospitalRecords } from '../../services/api';
+import { RecordsContext } from '../context/RecordsProvider';
+import { useNavigate } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 const IdInput = () => {
-  const handleSubmit = (event) => {
+const navigate = useNavigate();
+  const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs} =  useContext(RecordsContext);
+  
+  // const history = useHistory();
+  const handleSubmit = async(event) => {
     event.preventDefault();
     const txtInp = event.target.elements.inputId.value;
-    console.log(txtInp);
-    // You can perform further actions with the txtInp value here
+    let vaccines = await fetchIndiVaccineRecords(txtInp);
+    let hospital = await fetchIndiHospitalRecords(txtInp);
+    let tests = await fetchIndiTestsRecords(txtInp);
+    let clinical = await fetchIndiClinicalRecords(txtInp);
+
+    setVaccineRecs(vaccines);
+    setClinicRecs(clinical)
+    setHospitalRecs(hospital)
+    setTestRecs(tests);
+    navigate('/overview')
   };
 
   return (
@@ -18,7 +34,7 @@ const IdInput = () => {
             className="form-control"
             id="inputId"
             name="inputId" // added name attribute for better accessibility
-            aria-describedby="emailHelp"
+            
           />
           <div id="emailHelp" className="form-text">The one which is holding all your MEDICAL RECORDS</div>
           <button type="submit" className="btn btn-primary" style={{ marginLeft: "auto" }}>Submit</button>

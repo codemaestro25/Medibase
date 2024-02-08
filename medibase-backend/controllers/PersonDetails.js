@@ -34,7 +34,7 @@ export const fetchDetails = async(req ,res)=>{
 // getting all the individual records
 export const fetchIndiVaccineRecords = async(req, res) => {
     try {
-        console.log(req.body);
+       
         const details = await VaccineRecord.find({ patientId: req.body.uniqueId });
         if(details){
             return res.status(200).json(details);

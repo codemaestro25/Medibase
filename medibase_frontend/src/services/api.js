@@ -47,9 +47,33 @@ export const fetchIrisDetails = async(matchedImageName) => {
 
 // medical records
 
-export const fetchIndiMedicalRecords = async(uniqueId) =>{
+export const fetchIndiClinicalRecords = async(uniqueId) =>{
     try {
-        let records = await axios.post(`${URL}/fetchIndiMedicalRecords`, {uniqueId});
+        let records = await axios.post(`${URL}/fetchIndiClinicalRecords`, {uniqueId});
+        return records.data;
+    } catch (error) {
+        
+    }
+} 
+export const fetchIndiHospitalRecords = async(uniqueId) =>{
+    try {
+        let records = await axios.post(`${URL}/fetchIndiHospitalRecords`, {uniqueId});
+        return records.data;
+    } catch (error) {
+        
+    }
+} 
+export const fetchIndiTestsRecords = async(uniqueId) =>{
+    try {
+        let records = await axios.post(`${URL}/fetchIndiTestsRecords`, {uniqueId});
+        return records.data;
+    } catch (error) {
+        
+    }
+} 
+export const fetchIndiVaccineRecords = async(uniqueId) =>{
+    try {
+        let records = await axios.post(`${URL}/fetchIndiVaccineRecords`, {uniqueId});
         return records.data;
     } catch (error) {
         
