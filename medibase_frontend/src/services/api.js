@@ -79,3 +79,13 @@ export const fetchIndiVaccineRecords = async(uniqueId) =>{
         
     }
 } 
+
+export const fetchIndiPersonalDetails = async(uniqueId) =>{
+    try {
+        let records = await axios.post(`${URL}/fetchDetails`, {uniqueId});
+        return records.data;
+    } catch (error) {
+        
+    }
+} 
+

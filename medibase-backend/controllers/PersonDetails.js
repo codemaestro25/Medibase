@@ -11,12 +11,10 @@ import VaccineRecord from "../models/VaccineRecords.js";
 export const fetchDetails = async(req ,res)=>{
     try {
         // checking the Person;
-        console.log("he");
+      
         console.log(req.body);
-        console.log("she");
-        const details = await Person.findOne({fingerprint:  req.body.matchedImageName});
-    
-    
+        
+        const details = await Person.findOne({uniqueId:  req.body.uniqueId});
         // console.log(details.name);
         if(details){
         return res.status(200).send(details)

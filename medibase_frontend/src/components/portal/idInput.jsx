@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { fetchIndiVaccineRecords, fetchIndiClinicalRecords, fetchIndiTestsRecords, fetchIndiHospitalRecords } from '../../services/api';
+import { fetchIndiVaccineRecords, fetchIndiClinicalRecords, fetchIndiTestsRecords, fetchIndiHospitalRecords, fetchIndiPersonalDetails } from '../../services/api';
 import { RecordsContext } from '../context/RecordsProvider';
 import { useNavigate } from 'react-router-dom';
 // import { useHistory } from 'react-router-dom';
 
 const IdInput = () => {
 const navigate = useNavigate();
-  const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs} =  useContext(RecordsContext);
+  const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} =  useContext(RecordsContext);
   
   // const history = useHistory();
   const handleSubmit = async(event) => {
@@ -16,11 +16,13 @@ const navigate = useNavigate();
     let hospital = await fetchIndiHospitalRecords(txtInp);
     let tests = await fetchIndiTestsRecords(txtInp);
     let clinical = await fetchIndiClinicalRecords(txtInp);
+    let details = await fetchIndiPersonalDetails(txtInp);
 
     setVaccineRecs(vaccines);
     setClinicRecs(clinical)
     setHospitalRecs(hospital)
     setTestRecs(tests);
+    setPersonal(details)
     navigate('/overview')
   };
 

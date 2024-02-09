@@ -160,7 +160,7 @@ app.post("/fetchFingeprintDetails", async (req, res)=>{
     // checking the Person;
     console.log("Fingerprint");
     console.log(req.body);
-    console.log("she");
+  
 
     const details = await Person.findOne({fingerprint: req.body.matchedImageName});
 

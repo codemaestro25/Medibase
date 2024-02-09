@@ -11,8 +11,8 @@ import RecordsTabs from './RecordsTabs'
 
 const Overview = () => {
   var cardSize = 150
-  var cardHeight  = 120
-  var backcolor = "#f5cca4"
+  var cardHeight  = 140
+  var backcolor = "#33091f"
   return (
     <div>
       <Navbar />
@@ -24,34 +24,31 @@ const Overview = () => {
       <Container fixed sx={{display: 'flex' , flexDirection : 'row', maxWidth: '600px', justifyContent: 'space-around', alignItems: 'center', marginTop: '80px'}}>
       <Card sx={{ maxWidth: cardSize, minHeight : cardHeight , bgcolor: backcolor}}>
       <CardActionArea>
-        
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" sx={{color: "#fff", textAlign: "center" , display: "flex", flexDirection: "column"}}>
+          <i class="fa-solid fa-syringe"></i>
             Vaccines
           </Typography>
-    
         </CardContent>
       </CardActionArea>
     </Card>
       <Card sx={{ maxWidth: cardSize ,  minHeight : cardHeight , bgcolor: backcolor}}>
       <CardActionArea>
-        
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{color: '#6f1fd1', textAlign: 'center'}}>
+          <Typography gutterBottom variant="h5" component="div" sx={{color: '#fff', textAlign: 'center' , display: "flex", flexDirection: "column"}}>
+          <i class="fa-solid fa-hospital"></i>
             Hospital Admits
           </Typography>
-    
         </CardContent>
       </CardActionArea>
     </Card>
       <Card sx={{ maxWidth: cardSize ,  minHeight : cardHeight, bgcolor: backcolor}}>
-      <CardActionArea>
-        
+      <CardActionArea>  
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{color: '#371cbd', textAlign: 'center'}}>
+          <Typography gutterBottom variant="h5" component="div" sx={{color: '#fff', textAlign: 'center', display: "flex", flexDirection: "column"}}>
+          <i class="fa-solid fa-user-doctor"></i>
             Clinic Visits
-          </Typography>
-    
+          </Typography>    
         </CardContent>
       </CardActionArea>
     </Card>
@@ -59,10 +56,10 @@ const Overview = () => {
       <CardActionArea>
         
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{color: '#b31e28', textAlign: 'center'}}>
+          <Typography gutterBottom variant="h5" component="div" sx={{color: '#fff', textAlign: 'center' , display: "flex", flexDirection: "column"}}>
+          <i class="fa-solid fa-vial-virus"></i>
            Medical Tests 
           </Typography>
-    
         </CardContent>
       </CardActionArea>
     </Card>

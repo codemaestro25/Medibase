@@ -1,11 +1,13 @@
 import styled from '@emotion/styled'
 import { Box, Container, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 import PhotoCard from './PhotoCard'
+import { RecordsContext } from '../../context/RecordsProvider'
+
 
 const ParentContainer = styled(Box)`
 width : 80%;
-height : 200px;
+height : 250px;
 margin: 100px auto;
 background: #5ebedb;
 overflow  : hidden;
@@ -21,35 +23,44 @@ flex-wrap : wrap;
 `
 
 const DetailsContainer = styled.div`
-    display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Three columns for label-value pairs */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Three columns for label-value pairs */
   align-items: center;
-  justify-content: space-between;
-  margin: 0px 20px; /* Centers the inner container */
-  
-  width: calc(100% - 20px); /* 20px is subtracted to account for padding/margin */
-  max-width: 100%; /* Ensures the container doesn't exceed the parent's width */
+  grid-column-gap: 10px; /* Adjust this value to reduce the gap between columns */
 
-`
+  margin: 0px;
+  // width: calc(100% - 0px);
+  max-width: 100%;
+`;
+
 const typoStyle = {
-    paddingBottom : "30px"
+    paddingBottom : "30px",
+    
 }
 const Profile = () => {
-    const tre = "reveor"
+    const {personal} = useContext(RecordsContext)
+    const details = personal;
   return (
     <ParentContainer>
         <InnerContainer>
             <DetailsContainer>
-                <Typography sx={typoStyle}>Name : {tre}</Typography>
+      
                 <Typography sx={typoStyle}>Aadhar : </Typography>
-                <Typography sx={typoStyle}>Date of Birth : </Typography>
+                <Typography sx={typoStyle}>{details.aadhar} </Typography>
+                <Typography sx={typoStyle}>Date of Birth :  </Typography>
+                <Typography sx={typoStyle}>{details.dob} </Typography>
                 <Typography sx={typoStyle}>Gender : </Typography>
+                <Typography sx={typoStyle}>{details.gender} </Typography>
                 <Typography sx={typoStyle}>Contact : </Typography>
+                <Typography sx={typoStyle}>{details.mobile} </Typography>
                 <Typography sx={typoStyle}>Address : </Typography>
+                <Typography sx={typoStyle}>{details.address}</Typography>
+                <Typography sx={typoStyle}>Blood Group : </Typography>
+                <Typography sx={typoStyle}>{details.bldgp} </Typography>
 
             </DetailsContainer>
             {/* <i class="fa-solid fa-user fa-10x" ></i> */}
-            <PhotoCard />
+            <PhotoCard name = {details.name} photo = {details.photo}/>
         </InnerContainer>
     </ParentContainer>    
   )

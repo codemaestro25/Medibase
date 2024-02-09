@@ -1,25 +1,31 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
 
-export default function MediaCard() {
+const PhotoCard = ({name, photo}) => {
   return (
-    <Card sx={{ maxWidth: 345 , minWidth: 200, backgroundColor: "#436a8a"}}>
+    <Card sx={{ minWidth: 200  }}>
+    <CardActionArea>
       <CardMedia
-        sx={{ height: 60 }}
-        image= "img1.png"
-        title="Devesh Narkhede"
+        component="img"
+        height="180"
+        image={photo}
+        
       />
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
-          Devesh Narkhede
+        <Typography gutterBottom variant="h6" component="div" sx={{height:"40px"}}>
+          {name}
         </Typography>
+       
       </CardContent>
-      
-    </Card>
+    </CardActionArea>
+  </Card>
   );
 }
+
+export default PhotoCard
