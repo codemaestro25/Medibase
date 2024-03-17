@@ -11,6 +11,7 @@ height : 250px;
 margin: 100px auto;
 background: #5ebedb;
 overflow  : hidden;
+border-radius : 8px;
 
 `
 const InnerContainer = styled(Container)`

@@ -3,6 +3,8 @@ const Route = express.Router();
 import multer from "multer";
 import { processFingerprint } from './controllers/processFingerprint.js';
 import { fetchDetails, fetchIndiClinicalRecords, fetchIndiHospitalRecords, fetchIndiTestsRecords, fetchIndiVaccineRecords } from './controllers/PersonDetails.js';
+import { orgLogin } from './controllers/login.js';
+import { addHospitalNewRecord } from './controllers/AddData.js';
 
 
 const storage = multer.memoryStorage(); // Store the uploaded image in memory
@@ -15,6 +17,9 @@ Route.post("/fetchIndiVaccineRecords", fetchIndiVaccineRecords);
 Route.post("/fetchIndiHospitalRecords", fetchIndiHospitalRecords)
 Route.post("/fetchIndiTestsRecords", fetchIndiTestsRecords)
 Route.post("/fetchIndiClinicalRecords", fetchIndiClinicalRecords)
+Route.post("/orgLogin", orgLogin);
+Route.post("/hospital/newRecord", addHospitalNewRecord);
+
 
 
 export default Route;

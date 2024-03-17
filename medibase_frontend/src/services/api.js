@@ -89,3 +89,21 @@ export const fetchIndiPersonalDetails = async(uniqueId) =>{
     }
 } 
 
+export const orgLogin = async(orgDetails) =>{
+    try {
+        let response = await axios.post(`${URL}/orgLogin`, {orgDetails});
+        return response.data;
+    } catch (error) {
+        
+    }
+}
+
+export const addHospitalNewRecord = async(newData) => {
+    try {
+        let response = await axios.post(`${URL}/hospital/newRecord`, {newData});
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+

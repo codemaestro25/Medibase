@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
   Button,
   Typography,
@@ -14,6 +14,9 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { fetchFingeprintDetails, processFingeprintImage, processIrisImage , fetchIrisDetails} from "../../services/api";
 import FoundDialogue from "../details/foundDialogue";
 import video1 from "./video/finperprint_scan.mp4";
+import { fetchIndiVaccineRecords, fetchIndiClinicalRecords, fetchIndiTestsRecords, fetchIndiHospitalRecords, fetchIndiPersonalDetails } from '../../services/api';
+import { RecordsContext } from '../context/RecordsProvider';
+import { useNavigate } from 'react-router-dom';
 
 // const dialogStyle = {
 //   width: "60%",
@@ -47,13 +50,18 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
+const bodyStyle = {
+  height: "100vh",
+  backgroundColor: "#000", // Set background color to black
+};
 const Container = styled(Box)`
   margin: auto;
-  margin-top: 80px;
+
   display: flex !important;
   width: 80%;
   overflow: hidden;
   justify-content: space-evenly;
+  background-color: black;
 `;
 
 const UploadSection = styled(Box)`
@@ -77,6 +85,8 @@ const InputDialog = () => {
   const [open, setOpen] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [mode, setMode] = useState("f");
+  const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} =  useContext(RecordsContext);
+  const navigate = useNavigate();
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -107,8 +117,23 @@ const InputDialog = () => {
         // Handle the response from the server as needed
         console.log(response.status);
         console.log(details);
-        setOpen(true);
-        setMatchDetails(details);
+        // setOpen(true);
+        // setMatchDetails(details);
+        // extracting id from the details object and passing it to APis to fetch the details
+        const txtInp = details.uniqueId;
+        let vaccines = await fetchIndiVaccineRecords(txtInp);
+    let hospital = await fetchIndiHospitalRecords(txtInp);
+    let tests = await fetchIndiTestsRecords(txtInp);
+    let clinical = await fetchIndiClinicalRecords(txtInp);
+    let personal = await fetchIndiPersonalDetails(txtInp);
+
+    setVaccineRecs(vaccines);
+    setClinicRecs(clinical)
+    setHospitalRecs(hospital)
+    setTestRecs(tests);
+    setPersonal(personal)
+    navigate('/overview')
+
         setIsVideoPlaying(false);
         }
         else if(mode === 'i'){
@@ -125,6 +150,7 @@ const InputDialog = () => {
         console.log(details);
         setOpen(true);
         setMatchDetails(details);
+        
         setIsVideoPlaying(false);
         }
        
@@ -150,7 +176,7 @@ const InputDialog = () => {
   }, [isVideoPlaying]);
 
   return (
-    <>
+    <div style={bodyStyle}>
       <Container>
         <UploadSection>
           <ToggleButtonGroup
@@ -159,15 +185,15 @@ const InputDialog = () => {
             onChange={handleMode}
             style={{ backgroundColor: "#282829" }}
           >
-            <ToggleButton value="f" aria-label="Fingerprint">
+            <ToggleButton style={{color: "#41cf3c"}} value="f" aria-label="Fingerprint">
               <FingerprintIcon />
             </ToggleButton>
-            <ToggleButton value="i" aria-label="Iris">
+            <ToggleButton style={{color: "#41cf3c"}} value="i" aria-label="Iris">
               <RemoveRedEyeIcon />
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <Typography style={{ fontSize: "60px", fontFamily: "monospace" }}>
+          <Typography style={{ fontSize: "60px", fontFamily: "monospace", color: "#41cf3c"}}>
             {mode === "f" ? "Fingerprint Identification" : "Iris Identification"}
           </Typography>
 
@@ -223,7 +249,7 @@ const InputDialog = () => {
       {matchDetails && (
         <FoundDialogue details={matchDetails} open={open} setOpen={setOpen} />
       )}
-    </>
+    </div>
   );
 };
 

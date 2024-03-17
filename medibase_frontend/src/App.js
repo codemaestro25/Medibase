@@ -15,6 +15,10 @@ import IdInput from './components/portal/idInput';
 import Overview from './components/portal/records/overview';
 import Vaccines from './components/portal/records/Vaccines';
 import RecordsProvider from './components/context/RecordsProvider';
+import CommonAnalysis from './components/portal/PersonalAnalysis/CommonAnalysis';
+import HospitalLogin from './components/portal/logins/HospitalLogin/HospitalLogin';
+import HospitalPage from './components/endpoints/hospital/HospitalPage';
+import AddData from './components/endpoints/hospital/AddData';
 
 
 
@@ -43,6 +47,14 @@ function App() {
         <Route exact path='/overview' element={<Overview />}>
         </Route>
         <Route exact path='/vaccines' element={<Vaccines />}>
+        </Route>
+        <Route exact path='/hospitalPage' element={<HospitalPage />}>
+        </Route>
+        <Route exact path='/hospitalPage/addData' element={<AddData />}>
+        </Route>
+        <Route exact path='/commonAnalysis' element={<CommonAnalysis />}>
+        </Route>
+        <Route exact path='/login/hospital' element={<HospitalLogin />}>
         </Route>
       </Routes>
      </Router>

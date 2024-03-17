@@ -33,6 +33,10 @@ const hospitalAdmitRecordsSchema = new mongoose.Schema({
     AdmittedFor: {
         type: String,
         required: true
+    },
+    HospitalID : {
+        type: String,
+        required : true
     }
 });
 
