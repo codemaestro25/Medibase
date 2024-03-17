@@ -6,12 +6,15 @@ import { RecordsContext } from '../../context/RecordsProvider'
 
 
 const ParentContainer = styled(Box)`
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
 width : 80%;
 height : 250px;
-margin: 100px auto;
-background: #5ebedb;
+margin: 40px auto;
+background: #fff;
 overflow  : hidden;
 border-radius : 8px;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+font-family: 'Varela Round', sans-serif;
 
 `
 const InnerContainer = styled(Container)`
@@ -27,11 +30,11 @@ const DetailsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Three columns for label-value pairs */
   align-items: center;
-  grid-column-gap: 10px; /* Adjust this value to reduce the gap between columns */
+  grid-column-gap: 1px; /* Adjust this value to reduce the gap between columns */
 
   margin: 0px;
-  // width: calc(100% - 0px);
-  max-width: 100%;
+  width: calc(100% - 0px);
+  max-width: 50%;
 `;
 
 const typoStyle = {

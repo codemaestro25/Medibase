@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
-body {
+.body {
   margin: 0;
   background-color: lightskyblue;
 }
@@ -38,9 +38,15 @@ body {
   }
 }
 .pageContainer{
+  background-color: white;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 100%;
-  padding: 0 42px;
+  padding: 42px;
+}
+
+.container{
+  width: 60%;
 }

@@ -19,6 +19,7 @@ import CommonAnalysis from './components/portal/PersonalAnalysis/CommonAnalysis'
 import HospitalLogin from './components/portal/logins/HospitalLogin/HospitalLogin';
 import HospitalPage from './components/endpoints/hospital/HospitalPage';
 import AddData from './components/endpoints/hospital/AddData';
+import HospitalAnalysis from './components/portal/PersonalAnalysis/HospitalAnalysis';
 
 
 
@@ -53,6 +54,8 @@ function App() {
         <Route exact path='/hospitalPage/addData' element={<AddData />}>
         </Route>
         <Route exact path='/commonAnalysis' element={<CommonAnalysis />}>
+        </Route>
+        <Route exact path='/hospitalAnalysis' element={<HospitalAnalysis />}>
         </Route>
         <Route exact path='/login/hospital' element={<HospitalLogin />}>
         </Route>

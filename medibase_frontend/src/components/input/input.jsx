@@ -52,6 +52,7 @@ const VisuallyHiddenInput = styled("input")({
 
 const bodyStyle = {
   height: "100vh",
+  width: "100vw",
   backgroundColor: "#000", // Set background color to black
 };
 const Container = styled(Box)`
