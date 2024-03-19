@@ -9,7 +9,29 @@ import mongoose from "mongoose";
 import Person from "./models/Person.js";
 import bodyParser from "body-parser";
 import Route from "./route.js"
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/storage'; 
+import admin from 'firebase-admin'
+import serviceAccount from "./firebaseServiceKey.json" assert { type: "json" };
 
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDtvC5L1Shb8YCK9L06pULuLuXxeDZUJvc",
+  authDomain: "human-medical-ecosystem.firebaseapp.com",
+  databaseURL: "https://human-medical-ecosystem-default-rtdb.firebaseio.com",
+  projectId: "human-medical-ecosystem",
+  storageBucket: "human-medical-ecosystem.appspot.com",
+  messagingSenderId: "729868141304",
+  appId: "1:729868141304:web:6c5ff8d9afc711d78b710d"
+})
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://human-medical-ecosystem-default-rtdb.firebaseio.com",
+//   storageBucket: "gs://human-medical-ecosystem.appspot.com"
+// });
+
+// const bucket = admin.storage().bucket();
 
 
 
@@ -22,7 +44,7 @@ Connection();
 
 
 app.use(express.json());
-app.use('/', Route)
+// app.use('/', Route)
 
 const storage = multer.memoryStorage(); // Store the uploaded image in memory
 const upload = multer({ storage: storage });
@@ -250,6 +272,38 @@ app.post("/fetchIndiMedicalRecords", async (req, res) => {
   }
 });
 
+// genome file upload
+
+app.post("/uploadGenomeFile", upload.single("file"), async (req, res) => {
+  try {
+    console.log(req.file);
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child("genome_data.BMP"); // Changed file name to match your requirement
+
+    // Set metadata including content type
+    const metadata = {
+      contentType: req.file.mimetype // Set the content type based on the uploaded file
+    };
+
+    // Upload the file with metadata
+    fileRef.put(req.file.buffer, metadata)
+      .then(snapshot => snapshot.ref.getDownloadURL())
+      .then(downloadURL => {
+        console.log("File available at", downloadURL);
+        res.status(200).json({ downloadURL }); // Send download URL as response
+      })
+      .catch(error => {
+        console.error('Error uploading genome file:', error);
+        res.status(500).json({ error });
+      });
+  } catch (error) {
+    console.error('Error uploading genome file:', error);
+    res.status(500).json({ error });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Backend server running on Port: ${port}`);
 });
+
+

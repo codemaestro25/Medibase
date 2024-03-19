@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
 .body {
-  margin: 0;
+  margin: auto;
   background-color: lightskyblue;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .pageButton {
@@ -21,7 +22,7 @@
   outline: none;
   background: linear-gradient(45deg,#d350db,teal,#d350db);
   background-size: 400% 400%;
-  box-shadow: 1vw 1vw 0 lightcoral;
+  box-shadow: 0.75vw 0.75vw 0 lightcoral;
   cursor: pointer;
   transition: all 0.3s ease;
   
@@ -45,6 +46,8 @@
   justify-content: space-evenly;
   width: 100%;
   padding: 42px;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 .container{

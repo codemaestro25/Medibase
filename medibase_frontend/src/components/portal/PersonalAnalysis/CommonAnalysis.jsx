@@ -19,7 +19,7 @@ const CommonAnalysis = () => {
     <div>
       <br />
       <h2 style={{marginX: "auto"}}>Analysis</h2>
-      <div className="container">
+      <div className="wrapContainer">
 
         <GaugeChart
           id="gauge-chart2"
@@ -41,7 +41,7 @@ const CommonAnalysis = () => {
         </Typography>
       </div>
 
-      <div className="container hwContainer my-5">
+      <div className="wrapContainer hwContainer my-5">
         <div className="d-flex justify-content-between ">
           <div className="d-flex flex-column align-items-center justify-content-between">
           <i class="fa-solid fa-4x fa-scale-unbalanced-flip"></i>

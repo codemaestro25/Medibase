@@ -107,3 +107,12 @@ export const addHospitalNewRecord = async(newData) => {
     }
 }
 
+export const uploadGenomeFile = async(idAndFile)=>{
+    try {
+        let response = await axios.post(`${URL}/uploadGenomeFile`, idAndFile);
+        return response.data;
+    } catch (error) {
+        
+    }
+}
+
