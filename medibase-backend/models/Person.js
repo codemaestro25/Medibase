@@ -74,7 +74,10 @@ const PersonSchema = mongoose.Schema({
     },
     age : {
         type : String
-    }
+    },
+    genomeFile: {
+      type: String // Storing download URL as string
+  }
    
 
 });

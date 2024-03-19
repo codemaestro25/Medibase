@@ -10,6 +10,7 @@ import {
   uploadGenomeFile,
 } from "../../../services/api";
 import Noty from "noty";
+import './css/HospitalPage.css'
 
 const AddData = () => {
   const [details, setDetails] = useState({});
@@ -27,18 +28,18 @@ const AddData = () => {
     setFile(e.target.files[0]);
   };
 
-  const handleGenomeUpload = async(e) => {
+  const handleGenomeUpload = async (e) => {
     e.preventDefault();
     if (file) {
       // Here you can perform any file upload logic, such as sending the file to a server
-      console.log('File uploaded:', file);
+      console.log("File uploaded:", file);
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
+      formData.append("personId", details.uniqueId);
       const response = await uploadGenomeFile(formData);
       console.log(response);
-      
     } else {
-      alert('Please select a file');
+      alert("Please select a file");
     }
   };
 
@@ -53,8 +54,6 @@ const AddData = () => {
       billingAmount: document.getElementById("bill").value,
       hospitalId: "H1001",
     };
-
-
 
     const response = await addHospitalNewRecord(newData);
     if (response.flag) {
@@ -196,33 +195,35 @@ const AddData = () => {
             <div className="col-12">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="pageButton"
                 onClick={handleSubmit}
+                style={{width: "24vw", height: "4vw", fontSize:"1em"}}
               >
-                Add Data
+                Add New Admit Record
               </button>
             </div>
           </form>
-          <div class="d-flex flex-column input-group my-3">
+         {!details.genomeFile? (<div class="d-flex flex-column input-group my-3">
             <h3>Genome Data</h3>
             <form onSubmit={handleGenomeUpload}>
-      <div className="d-flex">
-        <input
-          type="file"
-          className="form-control"
-          id="genomeFile"
-          onChange={handleFileChange}
-        />
-      </div>
-      <button
-        type="submit"
-        style={{ width: "200px" }}
-        className="btn btn-success"
-      >
-        Add Genome Data
-      </button>
-    </form>
-          </div>
+              <div className="d-flex">
+                <input
+                  type="file"
+                  className="form-control"
+                  id="genomeFile"
+                  onChange={handleFileChange}
+                />
+              </div>
+              <button
+                type="submit"
+                
+                className="pageButton"
+                style={{width: "22vw", height: "4vw", fontSize:"1em"}}
+              >
+                Add Genome Data
+              </button>
+            </form>
+          </div>):(<div className="d-flex"><i class=" fa-2x fa-solid fa-check" style={{color: "#63E6BE"}}></i><h3>Genome data exists</h3></div>)}
         </div>
         <div className="flex-shrink-1">
           <div className=" card" style={{ height: "18rem", width: "18rem" }}>

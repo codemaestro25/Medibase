@@ -44,7 +44,7 @@ Connection();
 
 
 app.use(express.json());
-// app.use('/', Route)
+
 
 const storage = multer.memoryStorage(); // Store the uploaded image in memory
 const upload = multer({ storage: storage });
@@ -277,8 +277,10 @@ app.post("/fetchIndiMedicalRecords", async (req, res) => {
 app.post("/uploadGenomeFile", upload.single("file"), async (req, res) => {
   try {
     console.log(req.file);
+    const personId = req.body.personId; //unique id
+    console.log(personId);
     const storageRef = firebase.storage().ref();
-    const fileRef = storageRef.child("genome_data.BMP"); // Changed file name to match your requirement
+    const fileRef = storageRef.child(`${personId}_genome`); // Changed file name to match your requirement
 
     // Set metadata including content type
     const metadata = {
@@ -288,9 +290,17 @@ app.post("/uploadGenomeFile", upload.single("file"), async (req, res) => {
     // Upload the file with metadata
     fileRef.put(req.file.buffer, metadata)
       .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(downloadURL => {
+      .then(async downloadURL => {
         console.log("File available at", downloadURL);
-        res.status(200).json({ downloadURL }); // Send download URL as response
+        const updatedDoc = await Person.findOneAndUpdate({ uniqueId: personId }, { genomeFile: downloadURL }, { new: true });
+
+        if (updatedDoc) {
+            console.log('genomeFile field updated successfully');
+            res.status(200).json({ downloadURL });
+        } else {
+            console.error('Error updating genomeFile field: Document not found');
+            res.status(404).json({ error: 'Document not found' });
+        }
       })
       .catch(error => {
         console.error('Error uploading genome file:', error);
@@ -301,6 +311,8 @@ app.post("/uploadGenomeFile", upload.single("file"), async (req, res) => {
     res.status(500).json({ error });
   }
 });
+
+app.use('/', Route)
 
 app.listen(port, () => {
   console.log(`Backend server running on Port: ${port}`);
