@@ -25,6 +25,14 @@ const clinicalRecordsSchema = new mongoose.Schema({
     TestSuggested: {
         type: [String],
         default: []
+    },
+    CaseID: {
+        type: Number,
+        required: true
+    },
+    ClinicID: {
+        type: String,
+        required : true
     }
 });
 

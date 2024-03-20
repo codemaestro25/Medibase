@@ -112,7 +112,35 @@ export const uploadGenomeFile = async(idAndFile)=>{
         let response = await axios.post(`${URL}/uploadGenomeFile`, idAndFile);
         return response.data;
     } catch (error) {
-        
+        console.log(error);
+    }
+}
+
+export const addClinicNewRecord = async(clinicRecord) =>{
+    try {
+        let response = await axios.post(`${URL}/clinic/newRecord`, clinicRecord);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updateHeightWeight = async(hwUpdate) => {
+    try {
+        let response = await axios.post(`${URL}/personal/hwUpdate`, hwUpdate);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getBpSugarChol = async(patientId) =>{
+    try {
+        console.log("api", typeof(patientId));
+        let response = await axios.post(`${URL}/getLatestLevels`, patientId);
+        return response.data;
+    } catch (error) {
+        console.log(error);
     }
 }
 

@@ -2,9 +2,9 @@ import express from 'express';
 const Route = express.Router();
 import multer from "multer";
 import { processFingerprint } from './controllers/processFingerprint.js';
-import { fetchDetails, fetchIndiClinicalRecords, fetchIndiHospitalRecords, fetchIndiTestsRecords, fetchIndiVaccineRecords } from './controllers/PersonDetails.js';
+import { fetchDetails, fetchIndiClinicalRecords, fetchIndiHospitalRecords, fetchIndiTestsRecords, fetchIndiVaccineRecords, getLatestSugarBPCholestrol } from './controllers/PersonDetails.js';
 import { orgLogin } from './controllers/login.js';
-import { addHospitalNewRecord } from './controllers/AddData.js';
+import { addClinicNewRecord, addHospitalNewRecord, heightWeightUpdate } from './controllers/AddData.js';
 import { uploadGenomeFile } from './controllers/Files.js';
 
 
@@ -28,7 +28,10 @@ Route.post("/fetchIndiTestsRecords", fetchIndiTestsRecords)
 Route.post("/fetchIndiClinicalRecords", fetchIndiClinicalRecords)
 Route.post("/orgLogin", orgLogin);
 Route.post("/hospital/newRecord", addHospitalNewRecord);
-// Route.post("/uploadGenomeFile", upload.single('file'), uploadGenomeFile);
+Route.post('/clinic/newRecord', addClinicNewRecord);
+Route.post('/personal/hwUpdate', heightWeightUpdate);
+Route.post('/getLatestLevels', getLatestSugarBPCholestrol)
+
 
 
 

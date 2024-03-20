@@ -77,6 +77,15 @@ const PersonSchema = mongoose.Schema({
     },
     genomeFile: {
       type: String // Storing download URL as string
+  },
+  height : {
+      type: String
+  },
+  weight : {
+      type : String
+  },
+  uniqueId : {
+    type : String
   }
    
 

@@ -94,7 +94,26 @@ export const fetchIndiHospitalRecords = async(req, res) => {
     }
   };
 
+export const getLatestSugarBPCholestrol = async(req, res)=>{
+    
+    console.log("frend", req.body);
 
+    try {
+        // Find the document with the latest AnalysisDate for the given patientId
+        const latestRecord = await TestRecord.findOne( {patientId: req.body.patientId} ).sort({ AnalysisDate: -1 });
+
+        if (!latestRecord) {
+            return res.status(404).json({ message: "No records found" });
+        }
+
+       
+        const { BloodPressure, SugarLevels, CholesterolLevels } = latestRecord;
+
+        res.status(200).json({ BloodPressure, SugarLevels, CholesterolLevels });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 
 
