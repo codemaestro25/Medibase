@@ -22,13 +22,12 @@ const AddClinicData = () => {
     const [weight, setWeight] = useState('');
 
 
-    const handleFetchDetails = async (e) => {
+    const handleFetchDetails = async(e) => {
         const inputId = e.target.value;
-        setDetails(await fetchIndiPersonalDetails(inputId));
-        console.log(details?.height);
-        console.log(details?.weight);
-        setHeight(details?.height)
-        setWeight(details?.weight)
+        let hwDetails = await fetchIndiPersonalDetails(inputId)
+        setDetails(hwDetails);
+        setHeight(details.height)
+        setWeight(details.weight)
         console.log(details);
       };
 
@@ -201,7 +200,7 @@ const handleWeightChange = (e) =>{
             </label>
             <input
               type="text"
-              placeholder="Rs."
+              placeholder="Dr."
               className="form-control "
               id="drName"
             />

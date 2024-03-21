@@ -136,7 +136,6 @@ export const updateHeightWeight = async(hwUpdate) => {
 
 export const getBpSugarChol = async(patientId) =>{
     try {
-        console.log("api", typeof(patientId));
         let response = await axios.post(`${URL}/getLatestLevels`, patientId);
         return response.data;
     } catch (error) {
@@ -144,3 +143,11 @@ export const getBpSugarChol = async(patientId) =>{
     }
 }
 
+export const checkUserCredForOtp = async(creds) =>{
+    try {
+        let response = await axios.post(`${URL}/checkUserCredForOtp`, creds);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}

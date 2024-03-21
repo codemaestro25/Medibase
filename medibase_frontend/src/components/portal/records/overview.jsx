@@ -53,7 +53,7 @@ const Overview = () => {
         >
           <RecordsTabs />
         </Container>
-        <Container
+        {/* <Container
           fixed
           sx={{
             display: "flex",
@@ -96,7 +96,7 @@ const Overview = () => {
             <i class="fa-solid fa-vial-virus"></i>
            Medical Tests
           </button>
-        </Container>
+        </Container> */}
       </div>
     </body>
   );

@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./css/HospitalPage.css";
 import { Link } from "react-router-dom";
+import { RecordsContext }  from "../../context/RecordsProvider";
+import Navbar from "../../portal/Navbar";
+import hospSvg from './hospitalPage.svg'
+
 
 const HospitalPage = () => {
+const {hospDetails} = useContext(RecordsContext)
   return (
-    <div className="container">
+   <body style={{ height: "100vh" ,backgroundColor: "lightskyblue" }}>
+    <Navbar />
+     <div className="container my-5">
+     <div className="d-flex align-items-center justify-content-between pageContainer my-5" style={{flexDirection:"row"}}>
+     <div className="d-flex flex-column ">
+        <h1>{hospDetails?.name}</h1>
+        <h3>Hospital Id: {hospDetails?.orgId}</h3>
+       
+      </div>
+      <img src={hospSvg} alt="" srcset="" style={{width:"20%", height:"20%"}}/>
+     </div>
       <div className="d-flex justify-content-between">
         <div className="pageContainer">
           <h2>Data</h2>
@@ -24,6 +39,7 @@ const HospitalPage = () => {
         </div>
       </div>
     </div>
+   </body>
   );
 };
 

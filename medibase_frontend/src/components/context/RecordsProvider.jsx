@@ -7,6 +7,8 @@ const RecordsProvider = ({children}) =>{
     const [testRecs, setTestRecs] = useState([]);
     const [clinicRecs , setClinicRecs] = useState([]);
     const [personal , setPersonal] = useState([]);
+    const [hospDetails , setHospDetails] = useState([]);
+    const [clinicDetails , setClinicDetails] = useState([]);
 
     return(
         <RecordsContext.Provider value={{
@@ -19,7 +21,11 @@ const RecordsProvider = ({children}) =>{
             clinicRecs,
             setClinicRecs,
             personal,
-            setPersonal
+            setPersonal,
+            hospDetails,
+            setHospDetails,
+            clinicDetails , setClinicDetails
+    
 
         }}>
             {children}

@@ -22,6 +22,9 @@ import AddData from './components/endpoints/hospital/AddData';
 import HospitalAnalysis from './components/portal/PersonalAnalysis/HospitalAnalysis';
 import AddClinicData from './components/endpoints/clinic/AddClinicData';
 import Test from './components/portal/PersonalAnalysis/test';
+import UserLogin from './components/portal/logins/UserLogin/UserLogin';
+import Home from './components/portal/Home/Home';
+import ClinicPage from './components/endpoints/clinic/ClinicPage';
 
 
 
@@ -43,15 +46,21 @@ function App() {
        <Router>
      {/* <CssBaseline /> */}
       <Routes>
+        <Route exact path='/' element={<Home/>}>
+        </Route>
         <Route exact path='/idinput' element={<IdInput/>}>
         </Route>
         <Route exact path='/biometricId' element={<InputDialog />}>
+        </Route>
+        <Route exact path='/login/userLogin' element={<UserLogin />}>
         </Route>
         <Route exact path='/overview' element={<Overview />}>
         </Route>
         <Route exact path='/vaccines' element={<Vaccines />}>
         </Route>
         <Route exact path='/hospitalPage' element={<HospitalPage />}>
+        </Route>
+        <Route exact path='/clinicPage' element={<ClinicPage />}>
         </Route>
         <Route exact path='/hospitalPage/addData' element={<AddData />}>
         </Route>
