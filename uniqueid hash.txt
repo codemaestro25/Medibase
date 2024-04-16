@@ -1,0 +1,36 @@
+P0001  :  7fe125b0bc813916f093b3825ef12a36
+
+P0002 : 45a56cd2825904eed7dbbffe4beb68e5
+
+P0003 :   f15d0eac902022765d4c427521de0868
+
+P0004 :  1e99b4b701799282062afa3f1e044255
+
+
+db.hospitaladmitrecords.updateMany(
+
+   { $and: [{ patientId: "P0001" }] },
+   { $set: { patientId: "7fe125b0bc813916f093b3825ef12a36"} }
+
+)
+
+db.hospitaladmitrecords.updateMany(
+
+   { $and: [{ patientId: "P0002" }] },
+   { $set: { patientId: "45a56cd2825904eed7dbbffe4beb68e5"} }
+
+)
+
+db.hospitaladmitrecords.updateMany(
+
+   { $and: [{ patientId: "P0003" }] },
+   { $set: { patientId: "f15d0eac902022765d4c427521de0868"} }
+
+)
+
+db.hospitaladmitrecords.updateMany(
+
+   { $and: [{ patientId: "P0004" }] },
+   { $set: { patientId: "1e99b4b701799282062afa3f1e044255"} }
+
+)

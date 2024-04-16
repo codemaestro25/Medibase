@@ -24,7 +24,9 @@ const AddClinicData = () => {
 
     const handleFetchDetails = async(e) => {
         const inputId = e.target.value;
+        
         let hwDetails = await fetchIndiPersonalDetails(inputId)
+        
         setDetails(hwDetails);
         setHeight(details.height)
         setWeight(details.weight)

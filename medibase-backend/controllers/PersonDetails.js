@@ -4,6 +4,7 @@ import HospitalAdmitRecord from "../models/HospitalAdmitRecords.js";
 import Person from "../models/Person.js";
 import TestRecord from "../models/TestsRecord.js";
 import VaccineRecord from "../models/VaccineRecords.js";
+import objectHash from "object-hash"
 
 // requests for fetching the data from database
 
@@ -13,9 +14,13 @@ export const fetchDetails = async(req ,res)=>{
         // checking the Person;
       
         console.log(req.body);
+
+        const uidhash= objectHash.MD5(req.body.uniqueId);
         
-        const details = await Person.findOne({uniqueId:  req.body.uniqueId});
-        // console.log(details.name);
+        
+        // const details = await Person.findOne({uniqueId:  req.body.uniqueId});
+        const details = await Person.findOne({uniqueId: uidhash});
+        
         if(details){
         return res.status(200).send(details)
         }
@@ -32,8 +37,13 @@ export const fetchDetails = async(req ,res)=>{
 // getting all the individual records
 export const fetchIndiVaccineRecords = async(req, res) => {
     try {
-       
-        const details = await VaccineRecord.find({ patientId: req.body.uniqueId });
+        console.log(req.body.uniqueId)
+        // console.log("sj")
+        // console.log(uidhash)
+        const uidhash= objectHash.MD5(req.body.uniqueId);
+        const details = await VaccineRecord.find({ patientId: uidhash });
+        // console.log("skkk")
+        // console.log(details)
         if(details){
             return res.status(200).json(details);
         }
@@ -47,8 +57,10 @@ export const fetchIndiVaccineRecords = async(req, res) => {
   };
 export const fetchIndiHospitalRecords = async(req, res) => {
     try {
+
+        const uidhash= objectHash.MD5(req.body.uniqueId);
       
-        const details = await HospitalAdmitRecord.find({ patientId: req.body.uniqueId });
+        const details = await HospitalAdmitRecord.find({ patientId: uidhash });
         if(details){
             return res.status(200).json(details);
         }
@@ -64,8 +76,10 @@ export const fetchIndiHospitalRecords = async(req, res) => {
 
   export const fetchIndiTestsRecords = async(req, res) => {
     try {
+
+        const uidhash= objectHash.MD5(req.body.uniqueId);
       
-        const details = await TestRecord.find({ patientId: req.body.uniqueId });
+        const details = await TestRecord.find({ patientId: uidhash });
         if(details){
             return res.status(200).json(details);
         }
@@ -80,8 +94,9 @@ export const fetchIndiHospitalRecords = async(req, res) => {
 
   export const fetchIndiClinicalRecords = async(req, res) => {
     try {
+        const uidhash= objectHash.MD5(req.body.uniqueId);
       
-        const details = await ClinicalRecord.find({ patientId: req.body.uniqueId });
+        const details = await ClinicalRecord.find({ patientId: uidhash });
         if(details){
             return res.status(200).json(details);
         }

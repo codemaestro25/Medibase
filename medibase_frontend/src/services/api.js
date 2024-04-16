@@ -45,7 +45,7 @@ export const fetchIrisDetails = async(matchedImageName) => {
     }
 }
 
-// medical records
+// medical records   bb 
 
 export const fetchIndiClinicalRecords = async(uniqueId) =>{
     try {
@@ -82,7 +82,8 @@ export const fetchIndiVaccineRecords = async(uniqueId) =>{
 
 export const fetchIndiPersonalDetails = async(uniqueId) =>{
     try {
-        let records = await axios.post(`${URL}/fetchDetails`, {uniqueId});
+        
+        let records = await axios.post(`${URL}/fetchDetails`, {uniqueId}); //
         return records.data;
     } catch (error) {
         

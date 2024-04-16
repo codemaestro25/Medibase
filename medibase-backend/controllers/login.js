@@ -1,5 +1,9 @@
 import Orglogin from '../models/OrgLogin.js'
 import Userlogin from '../models/UserLogin.js';
+// var hash = require('object-hash');
+// import objectHash from "../../medibase-backend/node_modules/object-hash"
+import objectHash from "object-hash"
+
 
 export const orgLogin = async(req , res)=>{
 
@@ -27,7 +31,11 @@ console.log(password);
 export const checkUserCredForOtp = async(req, res )=>{
    try {
     const {uniqueId, password} = req.body;
-    let user = await Userlogin.findOne({uniqueId});
+    const uidhash= objectHash.MD5(uniqueId);
+    console.log(uidhash)
+ 
+    let user = await Userlogin.findOne({uniqueId:uidhash});
+    console.log(user)
     if(!user){
         return res.status(404).json({Error : "No user with the id found"})
     }
