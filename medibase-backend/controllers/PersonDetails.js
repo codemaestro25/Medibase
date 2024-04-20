@@ -15,11 +15,13 @@ export const fetchDetails = async(req ,res)=>{
       
         console.log(req.body);
 
-        const uidhash= objectHash.MD5(req.body.uniqueId);
-        
+        var uniqueId = req.body.uniqueId;
+        if(! isMD5Hash(req.body.uniqueId)){
+            uniqueId = objectHash.MD5(req.body.uniqueId);
+        }
         
         // const details = await Person.findOne({uniqueId:  req.body.uniqueId});
-        const details = await Person.findOne({uniqueId: uidhash});
+        const details = await Person.findOne({uniqueId: uniqueId});
         
         if(details){
         return res.status(200).send(details)
@@ -33,17 +35,21 @@ export const fetchDetails = async(req ,res)=>{
     }
 }
 
+function isMD5Hash(str) {
+    return /^[a-f0-9]{32}$/i.test(str);
+  }
 
 // getting all the individual records
 export const fetchIndiVaccineRecords = async(req, res) => {
     try {
-        console.log(req.body.uniqueId)
-        // console.log("sj")
-        // console.log(uidhash)
-        const uidhash= objectHash.MD5(req.body.uniqueId);
-        const details = await VaccineRecord.find({ patientId: uidhash });
-        // console.log("skkk")
-        // console.log(details)
+        console.log(req.body.uniqueId);
+        
+        var uniqueId = req.body.uniqueId;
+       if(! isMD5Hash(req.body.uniqueId)){
+           uniqueId = objectHash.MD5(req.body.uniqueId);
+       }
+        const details = await VaccineRecord.find({ patientId: uniqueId });
+    
         if(details){
             return res.status(200).json(details);
         }
@@ -58,9 +64,12 @@ export const fetchIndiVaccineRecords = async(req, res) => {
 export const fetchIndiHospitalRecords = async(req, res) => {
     try {
 
-        const uidhash= objectHash.MD5(req.body.uniqueId);
+        var uniqueId = req.body.uniqueId;
+        if(! isMD5Hash(req.body.uniqueId)){
+            uniqueId = objectHash.MD5(req.body.uniqueId);
+        }
       
-        const details = await HospitalAdmitRecord.find({ patientId: uidhash });
+        const details = await HospitalAdmitRecord.find({ patientId: uniqueId });
         if(details){
             return res.status(200).json(details);
         }
@@ -77,9 +86,12 @@ export const fetchIndiHospitalRecords = async(req, res) => {
   export const fetchIndiTestsRecords = async(req, res) => {
     try {
 
-        const uidhash= objectHash.MD5(req.body.uniqueId);
+        var uniqueId = req.body.uniqueId;
+        if(! isMD5Hash(req.body.uniqueId)){
+            uniqueId = objectHash.MD5(req.body.uniqueId);
+        }
       
-        const details = await TestRecord.find({ patientId: uidhash });
+        const details = await TestRecord.find({ patientId: uniqueId });
         if(details){
             return res.status(200).json(details);
         }
@@ -94,9 +106,12 @@ export const fetchIndiHospitalRecords = async(req, res) => {
 
   export const fetchIndiClinicalRecords = async(req, res) => {
     try {
-        const uidhash= objectHash.MD5(req.body.uniqueId);
+        var uniqueId = req.body.uniqueId;
+       if(! isMD5Hash(req.body.uniqueId)){
+           uniqueId = objectHash.MD5(req.body.uniqueId);
+       }
       
-        const details = await ClinicalRecord.find({ patientId: uidhash });
+        const details = await ClinicalRecord.find({ patientId: uniqueId });
         if(details){
             return res.status(200).json(details);
         }
@@ -112,10 +127,14 @@ export const fetchIndiHospitalRecords = async(req, res) => {
 export const getLatestSugarBPCholestrol = async(req, res)=>{
     
     console.log("frend", req.body);
+    var uniqueId = req.body.patientId;
+    if(! isMD5Hash(req.body.patientId)){
+        uniqueId = objectHash.MD5(req.body.uniqueId);
+    }
 
     try {
         // Find the document with the latest AnalysisDate for the given patientId
-        const latestRecord = await TestRecord.findOne( {patientId: req.body.patientId} ).sort({ AnalysisDate: -1 });
+        const latestRecord = await TestRecord.findOne( {patientId: uniqueId} ).sort({ AnalysisDate: -1 });
 
         if (!latestRecord) {
             return res.status(404).json({ message: "No records found" });
@@ -131,7 +150,7 @@ export const getLatestSugarBPCholestrol = async(req, res)=>{
 }
 
 
-
+    
 
 
 // try {

@@ -38,6 +38,8 @@ firebase.initializeApp({
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const port = 6001;
 Connection();

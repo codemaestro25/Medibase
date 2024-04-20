@@ -3,7 +3,7 @@ const Route = express.Router();
 import multer from "multer";
 import { processFingerprint } from './controllers/processFingerprint.js';
 import { fetchDetails, fetchIndiClinicalRecords, fetchIndiHospitalRecords, fetchIndiTestsRecords, fetchIndiVaccineRecords, getLatestSugarBPCholestrol } from './controllers/PersonDetails.js';
-import { checkUserCredForOtp, orgLogin } from './controllers/login.js';
+import { checkUserCredForOtp, orgLogin, sendResponseToClients, validateAppUser } from './controllers/login.js';
 import { addClinicNewRecord, addHospitalNewRecord, heightWeightUpdate } from './controllers/AddData.js';
 import { uploadGenomeFile } from './controllers/Files.js';
 
@@ -32,6 +32,8 @@ Route.post('/clinic/newRecord', addClinicNewRecord);
 Route.post('/personal/hwUpdate', heightWeightUpdate);
 Route.post('/getLatestLevels', getLatestSugarBPCholestrol)
 Route.post('/checkUserCredForOtp', checkUserCredForOtp)
+Route.get('/subscribe', sendResponseToClients)
+Route.post('/validateAppUser', validateAppUser)
 
 
 

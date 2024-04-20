@@ -12,6 +12,7 @@ const navigate = useNavigate();
   const handleSubmit = async(event) => {
     event.preventDefault();
     const txtInp = event.target.elements.inputId.value;
+    
     let vaccines = await fetchIndiVaccineRecords(txtInp);
     let hospital = await fetchIndiHospitalRecords(txtInp);
     let tests = await fetchIndiTestsRecords(txtInp);
@@ -29,7 +30,8 @@ const navigate = useNavigate();
   return (
     <div className='container md-5'>
       <form onSubmit={handleSubmit}>
-        <div className="container my-5 md-5 mb-3" style={{ width: 500 }}>
+        <div className="container my-5 md-5 mb-3" style={{ width: 800 }}>
+        <h1 className='my-5'>Identification using Unique ID</h1> 
           <label htmlFor="inputId" className="form-label">Unique Identification Number</label>
           <input
             type="text"

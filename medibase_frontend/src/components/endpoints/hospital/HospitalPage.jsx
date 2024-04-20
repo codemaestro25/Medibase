@@ -11,6 +11,7 @@ const {hospDetails} = useContext(RecordsContext)
   return (
    <body style={{ height: "100vh" ,backgroundColor: "lightskyblue" }}>
     <Navbar />
+   
      <div className="container my-5">
      <div className="d-flex align-items-center justify-content-between pageContainer my-5" style={{flexDirection:"row"}}>
      <div className="d-flex flex-column ">

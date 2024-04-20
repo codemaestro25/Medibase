@@ -51,7 +51,7 @@ const Profile = () => {
         <InnerContainer>
           <div className="d-flex flex-column">
           <h2>{details.name}</h2>
-          <h2>UniqueId: {details.uniqueId}</h2>
+          {/* <h2>UniqueId: {details.uniqueId}</h2> */}
           </div>
             <DetailsContainer>
 

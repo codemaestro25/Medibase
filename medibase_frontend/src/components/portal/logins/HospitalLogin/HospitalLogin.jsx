@@ -1,29 +1,47 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import './HospitalLogin.css'
 import HospitalImage from './hospital login.svg'
 import { orgLogin } from '../../../../services/api'
 import { useNavigate } from 'react-router-dom'
 import { RecordsContext } from '../../../context/RecordsProvider'
+import { URL } from '../../../../services/api'
+import backgroundImage from './hospLoginBack.jpg'
+
 
 const HospitalLogin = () => {
 const navigate = useNavigate();
+const [qrCodeUrl, setQRCodeUrl] = useState('');
 
-const{setHospDetails, setClinicDetails} = useContext(RecordsContext);
+const{setHospDetails, setClinicDetails, setCurrOrgUser} = useContext(RecordsContext);
 
 
 
 	const handleHospitalSubmit = async(e)=>{
 		e.preventDefault();
 
-		let orgDetails = await orgLogin(JSON.stringify({orgId:document.getElementById('orgId').value, password : document.getElementById('orgPass').value}));
-		console.log(orgDetails);
-		if(orgDetails){
-			setHospDetails(orgDetails)
-			navigate('/hospitalPage');
+		let response = await orgLogin(JSON.stringify({orgId:document.getElementById('orgId').value, password : document.getElementById('orgPass').value}));
+		// console.log(response);
+		if(response){
+			
+			setQRCodeUrl(response.url);
+			setHospDetails(response.org);
+			setCurrOrgUser("Dr. Himanshu Rathod")
 		}
 
 		
 	}
+
+	const eventSource = new EventSource(`${URL}/subscribe`);
+
+	eventSource.onmessage = (event)=>{
+		event.preventDefault();
+		const data = JSON.parse(event.data);
+		
+		if(data){
+			navigate('/hospitalPage');
+		}
+	}
+
 	const handleCliniclSubmit = async(e)=>{
 		e.preventDefault();
 
@@ -61,7 +79,9 @@ const{setHospDetails, setClinicDetails} = useContext(RecordsContext);
 
 
 return (
-<div className='d-flex flex-column align-items-center container my-5' >
+	
+		
+<div className='d-flex flex-column align-items-center  py-5 mainContainer'  >
      
     <div class="loginContainer" id="container">
 	<div class="form-container sign-up-container">
@@ -76,7 +96,7 @@ return (
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form  className='loginForm' onSubmit={handleHospitalSubmit}>
+		{qrCodeUrl?<img style={{margin: "100px 100px", height: "200px", width: "200px" }} src={qrCodeUrl} alt="QR Code" />:<form  className='loginForm' onSubmit={handleHospitalSubmit}>
 			<h1>Login</h1>
 			
 			<span></span>
@@ -84,7 +104,7 @@ return (
 			<input className= "loginInput" type="password" placeholder="Password"  id = 'orgPass' />
 			
 			<button type='submit'>Hospital Sign In</button>
-		</form>
+		</form>}
 	</div>
 	<div class="overlay-container">
 		<div class="overlay">
@@ -105,6 +125,7 @@ return (
 
 
  </div>
+	
   )
 }
 

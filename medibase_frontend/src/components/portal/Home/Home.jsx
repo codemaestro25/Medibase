@@ -5,11 +5,13 @@ import './css/Home.css'
 
 const Home = () => {
   return (
-    <>
-      <div className='section' ><Banner/></div>
-      <div style={{ overflow: "hidden"}}><Logins/></div>
-    </>
-  )
+   
+     <div className="scrollHomeContainer">
+       <section className='section' ><Banner/></section>
+      <section className='homePageDescContainer' style={{ overflow: "hidden", height: "100vh"}}></section>
+      <section className = 'homePageLoginContainer' style={{ overflow: "hidden", height: "100vh"}}><Logins/></section>
+     </div>
+  );
 }
 
 export default Home

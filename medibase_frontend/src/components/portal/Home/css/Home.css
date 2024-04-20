@@ -1,5 +1,18 @@
 
 
+.scrollHomeContainer{
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+  scroll-behavior: smooth;
+ 
+}
+
+section{
+ scroll-behavior: smooth;
+  scroll-snap-align: start;
+  
+}
 .section {
   align-items: center;
   
@@ -20,6 +33,9 @@
 }.section:nth-child(2) {
   
 	z-index: -2;
+}
+.section:nth-child(3){
+  z-index: -3;
 }
 
 .bannerHeading {
@@ -100,7 +116,8 @@
 .left{
   width: 25vw;
   height: 40vh;
-  background: linear-gradient(to right, #2E3192, #1BFFFF);
+  /* background: linear-gradient(to right, #2E3192, #1BFFFF); */
+  background: linear-gradient(to right, #11998E , #38EF7D);
   background-size: 150% 100%;
   
   
@@ -108,16 +125,27 @@
 .middle{
   width: 30vw;
   height: 50vh;
-  background: linear-gradient(to right, #D4145A , #FBB03B);
+  /* background: linear-gradient(to right, #D4145A , #FBB03B); */
   background-size: 150% 100%;
 }
 .right{
   width: 25vw;
   height: 40vh;
-  background: linear-gradient(to right, #11998E , #38EF7D);
+  background: linear-gradient(to right, #D4145A , #FBB03B);
   background-size: 150% 100%;
 }
 
+.homePageLoginContainer{
+
+  /* background: url('/public/back3.jpg');
+  background-repeat: no-repeat; /* Do not repeat the image */
+  /* background-size: contain ; 
+  background-position: 100% ;  */
+  
+}
+.homePageDescContainer{
+  background: url('/public/5.jpg') no-repeat center / cover;
+}
 
 
 /* button */

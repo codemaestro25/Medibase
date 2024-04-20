@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:6001";
+export const URL = "http://localhost:6001";
 
 
 export const processFingeprintImage = async(image) =>{
