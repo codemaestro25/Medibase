@@ -12,7 +12,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { fetchFingeprintDetails, processFingeprintImage, processIrisImage , fetchIrisDetails} from "../../services/api";
-import FoundDialogue from "../details/foundDialogue";
+
 import video1 from "./video/finperprint_scan.mp4";
 import { fetchIndiVaccineRecords, fetchIndiClinicalRecords, fetchIndiTestsRecords, fetchIndiHospitalRecords, fetchIndiPersonalDetails } from '../../services/api';
 import { RecordsContext } from '../context/RecordsProvider';
@@ -270,9 +270,9 @@ const InputDialog = () => {
           autoPlay={isVideoPlaying}
         /> */}
       </Container>
-      {matchDetails && (
-        <FoundDialogue details={matchDetails} open={open} setOpen={setOpen} />
-      )}
+      {/* {matchDetails && (
+        <Dialogue details={matchDetails} open={open} setOpen={setOpen} />
+      )} */}
     </div>
   );
 };
