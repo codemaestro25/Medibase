@@ -31,7 +31,7 @@ const navigate = useNavigate();
     <div className='container md-5'>
       <form onSubmit={handleSubmit}>
         <div className="container my-5 md-5 mb-3" style={{ width: 800 }}>
-        <h1 className='my-5'>Identification using Unique ID number</h1> 
+        <h1 className='my-5'>Identification using Unique ID </h1> 
           <label htmlFor="inputId" className="form-label">Unique Identification Number</label>
           <input
             type="text"
