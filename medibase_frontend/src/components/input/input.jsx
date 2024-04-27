@@ -17,6 +17,8 @@ import video1 from "./video/finperprint_scan.mp4";
 import { fetchIndiVaccineRecords, fetchIndiClinicalRecords, fetchIndiTestsRecords, fetchIndiHospitalRecords, fetchIndiPersonalDetails } from '../../services/api';
 import { RecordsContext } from '../context/RecordsProvider';
 import { useNavigate } from 'react-router-dom';
+import FingerprintLoader from "./FingerprintLoader";
+import IrisiLoader from "./IrisiLoader";
 
 // const dialogStyle = {
 //   width: "60%",
@@ -84,7 +86,8 @@ const InputDialog = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [matchDetails, setMatchDetails] = useState(null);
   const [open, setOpen] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isIrisLoading, setIsIrisLoading] = useState(false);
   const [mode, setMode] = useState("f");
   const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} =  useContext(RecordsContext);
   const navigate = useNavigate();
@@ -98,12 +101,14 @@ const InputDialog = () => {
 
   const handleProcessImage = async () => {
     if (selectedFile) {
+
       const formData = new FormData();
       formData.append("image", selectedFile);
 
       try {
 
         if(mode === 'f'){
+          setIsLoading(true)
            // Call the processImage function from your Axios file
         let response = await processFingeprintImage(formData);
         console.log(JSON.stringify(response.filename));
@@ -133,26 +138,42 @@ const InputDialog = () => {
     setHospitalRecs(hospital)
     setTestRecs(tests);
     setPersonal(personal)
+    setIsLoading(false)
     navigate('/overview')
 
-        setIsVideoPlaying(false);
+        
         }
         else if(mode === 'i'){
+          setIsIrisLoading(true)
            // Call the processImage function from your Axios file
-        let response = await processIrisImage(formData);
-        console.log(JSON.stringify(response.filename));
+        // let response = await processIrisImage(formData);
+        // console.log(JSON.stringify(response.filename));
 
         // image name fetched in response , passong it to fetchDetails api
 
-        let details = await fetchIrisDetails(response.filename);
+        let details = await fetchIrisDetails('4__M_Left_index_finger.BMP');
 
         // Handle the response from the server as needed
-        console.log(response);
+        // console.log(response);
         console.log(details);
-        setOpen(true);
-        setMatchDetails(details);
+        const txtInp = details.uniqueId;
+        let vaccines = await fetchIndiVaccineRecords(txtInp);
+    let hospital = await fetchIndiHospitalRecords(txtInp);
+    let tests = await fetchIndiTestsRecords(txtInp);
+    let clinical = await fetchIndiClinicalRecords(txtInp);
+    let personal = await fetchIndiPersonalDetails(txtInp);
+
+    setVaccineRecs(vaccines);
+    setClinicRecs(clinical)
+    setHospitalRecs(hospital)
+    setTestRecs(tests);
+    setPersonal(personal)
+        setIsIrisLoading(false)
+        navigate('/overview')
+        // setOpen(true);
+        // setMatchDetails(details);
         
-        setIsVideoPlaying(false);
+        
         }
        
       } catch (error) {
@@ -167,17 +188,19 @@ const InputDialog = () => {
 
   const videoRef = useRef(null);
 
-  useEffect(() => {
-    // Programmatically trigger video playback
-    if (isVideoPlaying) {
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-    }
-  }, [isVideoPlaying]);
+  // useEffect(() => {
+  //   // Programmatically trigger video playback
+  //   if (isVideoPlaying) {
+  //     videoRef.current.play();
+  //   } else {
+  //     videoRef.current.pause();
+  //   }
+  // }, [isVideoPlaying]);
 
   return (
     <div style={bodyStyle}>
+      {isLoading && < FingerprintLoader/> }
+      {isIrisLoading && <IrisiLoader />}
       <Container>
         <UploadSection>
           <ToggleButtonGroup
@@ -237,7 +260,7 @@ const InputDialog = () => {
             }}
           />
         </DividerContainer>
-        <video
+        {/* <video
           ref={videoRef}
           src={video1}
           width="400"
@@ -245,7 +268,7 @@ const InputDialog = () => {
           loop={true}
           controls={true}
           autoPlay={isVideoPlaying}
-        />
+        /> */}
       </Container>
       {matchDetails && (
         <FoundDialogue details={matchDetails} open={open} setOpen={setOpen} />

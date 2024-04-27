@@ -7,6 +7,7 @@ import { RecordsContext } from '../../context/RecordsProvider'
 
 const ClinicPage = () => {
   const {clinicDetails} = useContext(RecordsContext);
+  console.log(clinicDetails);
   return (
     
       <body style={{ height: "100vh" ,backgroundColor: 'lightseagreen' }}>
@@ -14,8 +15,8 @@ const ClinicPage = () => {
         <div className="container my-5">
         <div className="d-flex align-items-center justify-content-between pageContainer my-5" style={{flexDirection:"row"}}>
         <div className="d-flex flex-column ">
-           <h1>{clinicDetails?.name}</h1>
-           <h3>Clinic Id: {clinicDetails?.orgId}</h3>
+           <h1>{clinicDetails?.org.name}</h1>
+           <h3>Clinic Id: {clinicDetails?.org.orgId}</h3>
           
          </div>
          <img src={clinicSvg} alt="" srcset="" style={{width:"20%", height:"20%"}}/>

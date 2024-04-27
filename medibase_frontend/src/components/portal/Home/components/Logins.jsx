@@ -5,6 +5,7 @@ import UserImage from "../users.jpg";
 import AdminImage from "../admin3.png";
 import { Link, useNavigate } from "react-router-dom";
 import sideImage from './back3.jpg';
+import Reveal from "./Reveal";
 
 
 const Logins = () => {
@@ -22,6 +23,7 @@ backgroundImage: "linear-gradient(39deg, #0093E9 27%, #80D0C7 100%)", borderRadi
       <div className="homeContainer">
         <div className="d-flex flex-column align-items-center justify-content-around">
           <Link to={"/login/userLogin"}>
+            <Reveal>
             <div className="left indiContainer" >
               <img
                 src={UserImage}
@@ -30,9 +32,11 @@ backgroundImage: "linear-gradient(39deg, #0093E9 27%, #80D0C7 100%)", borderRadi
               />
               <h2>User Login</h2>
             </div>
+            </Reveal>
           </Link>
           <Link to={"/login/hospital"}>
-            <div className="indiContainer right">
+           <Reveal>
+           <div className="indiContainer right">
               <img
                 src={HospitalImage}
                 style={{ borderRadius: "18px", height: "70%", width: "60%" }}
@@ -40,6 +44,7 @@ backgroundImage: "linear-gradient(39deg, #0093E9 27%, #80D0C7 100%)", borderRadi
               />
               <h2>Medical Organization Login</h2>
             </div>
+           </Reveal>
           </Link>
         </div>
       </div>

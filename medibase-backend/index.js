@@ -118,6 +118,7 @@ const response = await new Promise((resolve) => {
 
 // api for processing iris image
 app.post("/process-iris-image", upload.single("image"), async (req, res) => {
+  console.log("Bhola");
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No image file uploaded." });

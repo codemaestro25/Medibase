@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
 .scrollHomeContainer{
   scroll-snap-type: y mandatory;
@@ -149,6 +149,19 @@ section{
 
 
 /* button */
+
+/* informaition page css */
+
+.infoText{
+  color: #fff;
+  font-family: 'Varela Round', sans-serif;
+  line-height: 50px;
+}
+
+.infoContainer{
+  margin: 10vh 50px;
+  width: 500px;
+}
 
  
 

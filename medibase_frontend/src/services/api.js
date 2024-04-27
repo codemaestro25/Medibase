@@ -37,7 +37,7 @@ export const fetchFingeprintDetails = async(matchedImageName) => {
 export const fetchIrisDetails = async(matchedImageName) => {
     try {
         console.log(matchedImageName);
-        let details = await axios.post(`${URL}/fetchIrisDetails`,   {matchedImageName});
+        let details = await axios.post(`${URL}/fetchFingeprintDetails`,{ matchedImageName});
         console.log(details); 
         return details.data;
     } catch (error) {
