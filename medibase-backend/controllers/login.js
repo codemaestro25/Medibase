@@ -1,3 +1,4 @@
+import LoginStamp from '../models/LoginStamp.js';
 import Orglogin from '../models/OrgLogin.js'
 import Userlogin from '../models/UserLogin.js';
 // var hash = require('object-hash');
@@ -67,7 +68,7 @@ export const orgLogin = async(req , res)=>{
      }
  }
  
- const authorizedUsers = ['Dr. Himanshu Rathod', "Dr. Meena Patil"];
+ const authorizedUsers = ['Dr. Himanshu Rathod', "Dr. Mrinal Thakur"];
 
 
  export const validateAppUser = async(req, res)=>{
@@ -79,10 +80,17 @@ export const orgLogin = async(req , res)=>{
     console.log(status);
     // Check if the scanned QR data is valid
     if (authorizedUsers.includes(username)) {
-        // Log the login event or perform any other actions
+        // Log the login time stamp 
         console.log(`User ${username} logged in`);
-        sendToClients({ message: 'App Validation Successfull', username });
-        res.sendStatus(200);
+        const loginStamp = new LoginStamp({
+            orgId : 'H1001', personName : username
+        })
+
+        const addedLoginStamp  = await loginStamp.save();
+        if(addedLoginStamp){
+            sendToClients({ message: 'App Validation Successfull', username });
+            res.sendStatus(200);
+        }
     } else {
         res.status(401).json({ error: 'kahitri problem aahe' });
     }

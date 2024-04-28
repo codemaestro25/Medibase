@@ -25,14 +25,6 @@ firebase.initializeApp({
   appId: "1:729868141304:web:6c5ff8d9afc711d78b710d"
 })
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://human-medical-ecosystem-default-rtdb.firebaseio.com",
-//   storageBucket: "gs://human-medical-ecosystem.appspot.com"
-// });
-
-// const bucket = admin.storage().bucket();
-
 
 
 

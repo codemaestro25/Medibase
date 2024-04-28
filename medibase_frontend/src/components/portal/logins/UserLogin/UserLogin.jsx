@@ -4,6 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import { RecordsContext } from '../../../context/RecordsProvider';
 import { fetchIndiVaccineRecords, fetchIndiClinicalRecords, fetchIndiTestsRecords, fetchIndiHospitalRecords, fetchIndiPersonalDetails } from '../../../../services/api'
 import '../HospitalLogin/HospitalLogin.css'
+import firebase from 'firebase/compat/app';
+import { auth } from '../../../../services/firebase';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDtvC5L1Shb8YCK9L06pULuLuXxeDZUJvc",
+//   authDomain: "human-medical-ecosystem.firebaseapp.com",
+//   databaseURL: "https://human-medical-ecosystem-default-rtdb.firebaseio.com",
+//   projectId: "human-medical-ecosystem",
+//   storageBucket: "human-medical-ecosystem.appspot.com",
+//   messagingSenderId: "729868141304",
+//   appId: "1:729868141304:web:6c5ff8d9afc711d78b710d"
+// };
+
+// firebase.initializeApp(firebaseConfig);
+// // Initialize Firebase
+
 
 
 const UserLogin = () => {
@@ -11,6 +28,59 @@ const UserLogin = () => {
     const [successAlert, setSuccessAlert] = useState(false);
     const [errorAlert, setErrorAlert] = useState(false);
     const otpButtonRef = useRef(null);
+
+
+//firebase otp code
+const configureCaptcha = () =>{
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+      'size': 'invisible',
+      'callback': (response) => {
+        onSignInSubmit();
+        console.log("Recaptcha varified")
+      },
+      defaultCountry: "IN"
+    });
+  }
+
+
+  const onSignInSubmit = (mobile) => {
+    console.log(mobile);
+    configureCaptcha();
+    const phoneNumber = "+91" + mobile;
+    console.log(phoneNumber);
+    const appVerifier = window.recaptchaVerifier;
+    
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+            // SMS sent. Prompt user to type the code from the message, then sign the
+            // user in with confirmationResult.confirm(code).
+            window.confirmationResult = confirmationResult;
+            console.log("OTP has been sent");
+        })
+        .catch((error) => {
+            console.error("Error sending OTP:", error);
+            // Handle error, show user an appropriate message
+        });
+};
+
+  const onSubmitOTP = (e) =>{
+    e.preventDefault();
+    const code = document.getElementById('otp').value;
+    console.log(code)
+    window.confirmationResult.confirm(code).then((result) => {
+      // User signed in successfully.
+      const user = result.user;
+      console.log(JSON.stringify(user))
+      navigate('/overview')      
+      // ...
+    }).catch((error) => {
+      // User couldn't sign in (bad verification code?)
+      setErrorAlert(true);
+      setTimeout(() => {
+          setErrorAlert(false);
+      }, 5000); 
+    });
+  }
 
     useEffect(() => {
         if (otpVisible) {
@@ -33,6 +103,7 @@ const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} 
         console.log(creds.password);
         const response = await checkUserCredForOtp(creds);
         if (response?.flag) {
+            handleSubmit();
             setOtpVisible(true);
             // Hide the success alert after 5 seconds
         } else {
@@ -42,8 +113,8 @@ const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} 
             }, 5000); // Hide the error alert after 5 seconds
         }
     };
-    const handleSubmit = async(event)=>{
-        event.preventDefault();
+    const handleSubmit = async()=>{
+       
         const txtInp = document.getElementById('uniqueId').value;
         let vaccines = await fetchIndiVaccineRecords(txtInp);
         let hospital = await fetchIndiHospitalRecords(txtInp);
@@ -56,7 +127,9 @@ const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} 
         setHospitalRecs(hospital)
         setTestRecs(tests);
         setPersonal(details)
-        navigate('/overview')
+        console.log("pahile " , details.mobile);
+        onSignInSubmit(details.mobile)
+       
     }
 
     useEffect(() => {
@@ -91,7 +164,7 @@ const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} 
             )}
             <div class="loginContainer" id="container">
             <div class="form-container sign-up-container">
-            <form  className='loginForm' onSubmit={handleSubmit}>
+            <form  className='loginForm' onSubmit={onSubmitOTP}>
                     
                     
                     <span></span>
@@ -127,6 +200,7 @@ const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} 
                     </div>
                 </div>
             </div>
+            <div id="sign-in-button"></div>
         </div>
         
         
@@ -138,38 +212,3 @@ const {setVaccineRecs,  setTestRecs,setHospitalRecs,setClinicRecs, setPersonal} 
 
 export default UserLogin;
 
-// return (
-//     <div className='wrapContainer my-5'>
-//         <form>
-//             {successAlert && (
-//                 <div className="alert alert-success" role="alert">
-//                     OTP sent successfully!
-//                 </div>
-//             )}
-//             {errorAlert && (
-//                 <div className="alert alert-danger" role="alert">
-//                     Invalid credentials! Please try again.
-//                 </div>
-//             )}
-//             <div className="mb-3">
-//                 <label htmlFor="exampleInputEmail1" className="form-label">Unique Id</label>
-//                 <input type="text" className="form-control" id="uniqueId" aria-describedby="emailHelp" />
-//             </div>
-//             <div className="mb-3">
-//                 <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-//                 <input type="password" className="form-control" id="password" />
-//             </div>
-//             {otpVisible ? (
-//                 <div className="mb-3">
-//                     <label htmlFor="exampleInputEmail1" className="form-label">One Time Password</label>
-//                     <input type="text" className="form-control" id="otp" aria-describedby="emailHelp" />
-//                 </div>
-//             ) : null}
-//             {!otpVisible ? (
-//                 <button type="submit" className="btn btn-primary" onClick={handleGetOtp}>GetOtp</button>
-//             ) : (
-//                 <button type="submit" className="btn btn-primary">Submit</button>
-//             )}
-//         </form>
-//     </div>
-// );
