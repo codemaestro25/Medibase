@@ -6,7 +6,7 @@ export const URL = "http://13.234.239.242:6001";
 
 export const processFingeprintImage = async(image) =>{
     try {
-        let response = await axios.post(`${URL}/process-fingerprint-image`, image);
+        let response = await axios.post(`http://localhost:6001/process-fingerprint-image`, image);
         console.log("api");
         return response.data;
     } catch (error) {
@@ -16,7 +16,7 @@ export const processFingeprintImage = async(image) =>{
 
 export const processIrisImage = async(image) =>{
     try {
-        let response = await axios.post(`${URL}/process-iris-image`, image);
+        let response = await axios.post(`http://localhost:6001/process-iris-image`, image);
         console.log("api");
         return response.data;
     } catch (error) {

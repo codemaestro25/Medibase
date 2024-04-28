@@ -51,74 +51,61 @@ app.post("/process-fingerprint-image", upload.single("image"), async (req, res) 
       return res.status(400).json({ error: "No image file uploaded." });
     }
 
-    console.log("1")
+
     const imageBuffer = req.file.buffer;
 
     // Create a temporary file to store the image buffer
     temp.track(); // Initialize the temp library
     const tempFilePath = temp.path({ suffix: ".jpg" });
     fs.writeFileSync(tempFilePath, imageBuffer);
-    console.log("2")
+
     console.log(tempFilePath);
-
-    console.log("3")
-    const pythonExecutablePath = '/usr/bin/python3'; // Replace this with the actual path
-
-    // Replace 'python' with pythonExecutablePath
-    const pythonProcess = spawn(pythonExecutablePath, ['algo.py', tempFilePath]);
-    console.log("4")
+    // Execute the Python script as a child process with the temporary file path
+    const pythonProcess = spawn('python', ['algo.py', tempFilePath]);
 
     // Pipe the image buffer to the Python process's stdin
     pythonProcess.stdin.write(imageBuffer);
     pythonProcess.stdin.end();
-    console.log("5")
 
-    // Handle the response data from your Python script as needed
-    const response = await new Promise((resolve) => {
-      let jsonData = '';
+   // Handle the response data from your Python script as needed
+const response = await new Promise((resolve) => {
+  let jsonData = '';
 
-      pythonProcess.stdout.on('data', (data) => {
-        jsonData += data.toString();
-        console.log("Received data from Python script:", jsonData);
+  pythonProcess.stdout.on('data', (data) => {
+    jsonData += data.toString();
 
-        // Check if jsonData contains complete JSON objects
-        const lines = jsonData.split('\n');
-        if (lines.length > 1) {
-          // Parse each complete JSON object
-          const parsedData = lines
-            .filter((line) => line.trim() !== '')
-            .map((line) => {
-              try {
-                return JSON.parse(line);
-              } catch (error) {
-                console.error('Error parsing JSON:', error);
-                return null;
-              }
-            })
-            .filter((parsed) => parsed !== null);
+    // Split the data by newlines
+    const lines = jsonData.split('\n');
 
-          // Clear jsonData after processing
-          jsonData = '';
-
-          // Resolve promise with all parsed data
-          resolve(parsedData);
+    // Process each line separately
+    lines.forEach((line) => {
+      if (line.trim() !== '') {
+        try {
+          const parsedData = JSON.parse(line);
+          resolve(parsedData); // Resolve with the parsed JSON
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
         }
-      });
+      }
     });
+
+    // Keep any remaining data for the next iteration
+    jsonData = lines.pop() || '';
+  });
+});
 
     // console.log(response);
     // Here, you can send the response back to the client or perform other actions.
 
     // Delete the temporary file after processing
     temp.cleanupSync();
-
+    
     res.json(response);
   } catch (error) {
     console.error("Error processing fingerprint:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 
 // api for processing iris image

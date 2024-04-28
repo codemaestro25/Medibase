@@ -25,7 +25,7 @@ const{setHospDetails, setClinicDetails, setCurrOrgUser} = useContext(RecordsCont
 			
 			setQRCodeUrl(response.url);
 			setHospDetails(response.org);
-			setCurrOrgUser("Dr. Himanshu Rathod")
+			
 		}
 
 		
@@ -38,6 +38,7 @@ const{setHospDetails, setClinicDetails, setCurrOrgUser} = useContext(RecordsCont
 		const data = JSON.parse(event.data);
 		
 		if(data){
+			setCurrOrgUser(data.username)
 			navigate('/hospitalPage');
 		}
 	}
