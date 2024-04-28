@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const URL = "http://localhost:6001";
-// export const URL = "http://13.234.239.242:6001";
+// export const URL = "http://localhost:6001";
+export const URL = "http://13.234.239.242:6001";
 
 
 export const processFingeprintImage = async(image) =>{

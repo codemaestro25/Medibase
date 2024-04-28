@@ -86,11 +86,11 @@ export const orgLogin = async(req , res)=>{
             orgId : 'H1001', personName : username
         })
 
-        const addedLoginStamp  = await loginStamp.save();
-        if(addedLoginStamp){
-            sendToClients({ message: 'App Validation Successfull', username });
-            res.sendStatus(200);
-        }
+        // const addedLoginStamp  = await loginStamp.save();
+        sendToClients({ message: 'App Validation Successfull', username });
+        res.sendStatus(200);
+        // if(addedLoginStamp){
+        // }
     } else {
         res.status(401).json({ error: 'kahitri problem aahe' });
     }
