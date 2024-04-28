@@ -60,8 +60,15 @@ app.post("/process-fingerprint-image", upload.single("image"), async (req, res) 
     fs.writeFileSync(tempFilePath, imageBuffer);
 
     console.log(tempFilePath);
-    // Execute the Python script as a child process with the temporary file path
-    const pythonProcess = spawn('python', ['algo.py', tempFilePath]);
+
+    // // Execute the Python script as a child process with the temporary file path
+    // const pythonProcess = spawn('python', ['algo.py', tempFilePath]);
+
+    const pythonExecutablePath = '/usr/bin/python3'; // Replace this with the actual path
+
+    // Replace 'python' with pythonExecutablePath
+    const pythonProcess = spawn(pythonExecutablePath, ['algo.py', tempFilePath]);
+    
 
     // Pipe the image buffer to the Python process's stdin
     pythonProcess.stdin.write(imageBuffer);
