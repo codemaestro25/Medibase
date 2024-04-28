@@ -1,9 +1,9 @@
 
 import './App.css';
 import React from 'react'; 
-import { ThemeProvider, createTheme } from '@mui/material/styles'; 
+import { createTheme } from '@mui/material/styles'; 
 import InputDialog from './components/input/input';
-import CssBaseline from '@mui/material/CssBaseline';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -44,7 +44,7 @@ function App() {
     // <ThemeProvider theme={theme}>
     <RecordsProvider>
        <Router>
-     {/* <CssBaseline /> */}
+    
       <Routes>
         <Route exact path='/' element={<Home/>}>
         </Route>
