@@ -77,7 +77,7 @@ app.post("/process-fingerprint-image", upload.single("image"), async (req, res) 
    // Handle the response data from your Python script as needed
 const response = await new Promise((resolve) => {
   let jsonData = '';
-
+console.log("here");
   pythonProcess.stdout.on('data', (data) => {
     jsonData += data.toString();
     console.log("6")
