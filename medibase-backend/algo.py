@@ -42,6 +42,7 @@ def getData():
         "filename": filename,
         "best_score": best_score,
     }
+    print("form python file")
 
    
     print(json.dumps(best_match))

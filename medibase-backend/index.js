@@ -51,39 +51,39 @@ app.post("/process-fingerprint-image", upload.single("image"), async (req, res) 
       return res.status(400).json({ error: "No image file uploaded." });
     }
 
-
+    console.log("1")
     const imageBuffer = req.file.buffer;
 
     // Create a temporary file to store the image buffer
     temp.track(); // Initialize the temp library
     const tempFilePath = temp.path({ suffix: ".jpg" });
     fs.writeFileSync(tempFilePath, imageBuffer);
-
+    console.log("2")
     console.log(tempFilePath);
 
     // // Execute the Python script as a child process with the temporary file path
     // const pythonProcess = spawn('python', ['algo.py', tempFilePath]);
-
+    console.log("3")
     const pythonExecutablePath = '/usr/bin/python3'; // Replace this with the actual path
 
     // Replace 'python' with pythonExecutablePath
     const pythonProcess = spawn(pythonExecutablePath, ['algo.py', tempFilePath]);
-    
+    console.log("4")
 
     // Pipe the image buffer to the Python process's stdin
     pythonProcess.stdin.write(imageBuffer);
     pythonProcess.stdin.end();
-
+    console.log("5")
    // Handle the response data from your Python script as needed
 const response = await new Promise((resolve) => {
   let jsonData = '';
 
   pythonProcess.stdout.on('data', (data) => {
     jsonData += data.toString();
-
+    console.log("6")
     // Split the data by newlines
     const lines = jsonData.split('\n');
-
+    console.log("7")
     // Process each line separately
     lines.forEach((line) => {
       if (line.trim() !== '') {
