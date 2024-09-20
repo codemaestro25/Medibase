@@ -1,13 +1,1 @@
-{
-  "type": "service_account",
-  "project_id": "human-medical-ecosystem",
-  "private_key_id": "4ffff1b1e6d0b3d8a2ffc6bfb62caf1503bb4c86",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCkM+MAr0pSgtYi\nAVpnRd3c/oTwd+gUbfkvHpI/RRYMMapFY4TZJeYnYIW9kVNc2jmHd9d5yr2CzkU7\nnEbMG3cXXDVLVS4X/Jcg0Gl6Z27kFOh/+asW6YOzN4JyQM05AhMspcKvFQO+MGeL\ntd0sJiPrAOMI3WBzpEo6K3Vm9itwmV6Wn+n+IEaZNTjEqDaeRbevxjGdImw6hlZw\nxIwOzHC8RlR+BmMdZl0cuxSHxHYaycpBKCq3fojNMO0vK4B2glmAe9XUz4J/3bDt\nMprvHvQIlHqXA/qdnXGq9IX4gleEaYEnEAdh1Ourkt2rn63FFI9l6dJX580xhZx6\nMR/DvI3HAgMBAAECggEARshjM5lcpYLnAdOpf9k7UZeaAPr/XUcm4qwACSwj2+/Q\n4YaL7vuKYjEWleg+kkk0AXSku0itNuTqLU8pqbSxOq2x/55hd0+YajnNLknGIKXu\nr7QVj5PsBOaJ4eyTSt7dGyL9cHHTojnFeRFVnUF3vEcul1SuzkrlAHxZaJ/3i9qw\nPaYn+ov7ug6YBPXON0jQ+VeQADLLN1DKdtid45kwvaefQalvUAFkR1ujoFrNFk4G\nurQYO0CRGW2XwcFeZeivikdgQ+zHSh1l73zVGVgiFZ1idj6AnXjGk072ib0WBQjP\nopbcCVP3IdXKI28NFnGy0N3dFJ4zURuo7AJnC9SCaQKBgQDZX9khUFFkOqKCBlV5\ngjnQPubTYjpOEJMgMxZCHo7SSBcsRhCX++8wmjK8wEavVZTPnOVV+PuDe3rUwdia\ngQhh1dS2U6/fDmq7/qO0z2LwOhKYoyOhL1cHeT/JfoASelLX25P4TlbNobMNu0Sl\nXywBfVr3iIRn5V8EBf2H81dYEwKBgQDBYU7klRafZ1UxmuJ/86rn9LuCFH8QCSo+\nwMrxr3C24qkHGITixw9zsPS/TKFB/Ud93ZGBMV6nPc5C12OWoYK52Til2W3BvLVs\nX8tcoVvgTjVm3OV6wCcBvXMTu9OtT3mUvU2fF0Mj3fQJvbC5UBJjtl5bfWoMKh2R\n4yGKsNHR/QKBgQCjitxWlxIVYZQAVXmbaKHMjnal1QJe11OJ50W4yzrS9JASrEgx\nwMctfuXrYpILukyygq18qE26l31LcuhfHfNLgFCAOKhaHoOpGyTZlSov6NEy65KT\n44ULx2p5U2ZSAJwxcS97opzmKuEG1L0J2nfGSyTUlW5gqI56/XLJBQjS5wKBgQCe\nrUofJna5tgCiA4V3mGnUi2yRAGCCuAKCG5BrYJoMd1BbEjN4If7732f00NxBWaMg\nFH8gk3InqP9muXZuU3kBJszkydTV9BKqKrCkAYNyOrp2/SsP3jwjoWCcALNgsqYA\n9pSKxnvBIo7sr0ojxSBR0YL7b51k/enlm4oaU5zXwQKBgQDXXE2/MEAzV1KBkQB3\n+itlG8ssUC4+QqeCQn8ZgOJ4nN5px/Crnw1rJtKcgyVpB0l3laCvM6qI20uRhKGW\ndyWH4FpCYJJc0Y2OSjx+0zqfVhZPD+fsOGKVepiMtqKokoJD7bzzqLtZ2NVQapSe\n7qgYk0QCvAljpxJCX1420Nf5Sg==\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-lqh9n@human-medical-ecosystem.iam.gserviceaccount.com",
-  "client_id": "106343899875616269373",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-lqh9n%40human-medical-ecosystem.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
+
